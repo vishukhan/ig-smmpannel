@@ -80,9 +80,9 @@
           <input id="username" placeholder="@username" />
 
           <div class="controls" style="margin-top:14px">
-            <button id="startBtn" onclick="startDelivery()">Start Delivery</button>
-            <button class="btn-ghost" onclick="openSBI()">SBI Payment Steps</button>
-            <button class="btn-ghost" onclick="openWhats()">Order on WhatsApp</button>
+            <button id="startBtn" onclick="startWhats('https://wa.me/message/MRFDVSDLJC3YA1')">Start Delivery</button>
+            <button class="btn-ghost" onclick="openWhats('https://wa.me/message/MRFDVSDLJC3YA1')">SBI Payment Steps</button>
+            <button class="btn-ghost" onclick="openWhats('https://wa.me/message/MRFDVSDLJC3YA1')">Order on WhatsApp</button>
           </div>
 
           <div class="note">Demo mode: actual followers delivery requires payment/verification. यहाँ सब functional दिखेगा पर backend नहीं है।</div>
@@ -95,21 +95,5 @@
           </div>
         </div>
       </div>
-
       <!-- RIGHT: SBI Payment / Info -->
       <div>
-        <div class="card">
-          <h3>SBI Payment Instructions</h3>
-          <div class="sbi">
-            <div><strong>Bank:</strong> State Bank of India</div>
-            <div><strong>Account Name:</strong> <span id="accName">YOUR NAME</span></div>
-            <div><strong>Account No:</strong> <span id="accNo">00000000000</span></div>
-            <div><strong>IFSC:</strong> <span id="ifsc">SBIN0000000</span></div>
-            <div style="margin-top:8px" class="small">UPI ID: <strong id="upi">yourupi@upi</strong></div>
-
-            <div style="display:flex;gap:8px;margin-top:10px">
-              <button class="copy" onclick="copyAcc()">Copy Account Details</button>
-              <button class="copy" onclick="copyUPI()">Copy UPI</button>
-            </div>
-
-            <label>Payment Reference / Txn ID (after transfer)</label>
