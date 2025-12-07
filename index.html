@@ -429,7 +429,7 @@
   // WhatsApp auto-order open
   const whatsNumber = '91' + '83078-03553; // change this to your actual number with country code
   function openWhatsOrder(plan){
-    const text = encodeURIComponent(`Hi, I want to buy your plan: ${plan} |0AName:|%0APhone:`) ;
+    const text = encodeURIComponent(`Hi, I want to buy your plan: ${plan} |0AName:|0APhone:`) ;
     const url = `https://wa.me/${whatsNumber}?text=${text}`;
     window.open(url,'_blank');
   }
@@ -450,7 +450,7 @@
     const name = encodeURIComponent(document.getElementById('name').value || '—');
     const phone = encodeURIComponent(document.getElementById('phone').value || '—');
     const service = encodeURIComponent(document.getElementById('service').value || '—');
-    const text = encodeURIComponent(`Hi, I want to buy: ${service} %0AName:${name}%0APhone:${phone}`);
+    const text = encodeURIComponent(`Hi, I want to buy: ${service} |0AName:${name}|0APhone:${phone}`);
     window.open(`https://wa.me/${whatsNumber}?text=${text}`,'_blank');
   }
   
