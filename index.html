@@ -428,7 +428,26 @@
 
   //order list
   // DYNAMIC SERVICE DETAILS (UnitySMM Style)
+  // DYNAMIC SERVICE DETAILS (UnitySMM Style)
+  const serviceData = {
+      "💫world's cheapest Views👀✨️ - ₹30": { desc: '💫world's cheapest Views👀✨️.', price: '₹30' },
+      "💫Instagram Real Indian Likes❤️✨️ - ₹100": {  desc: '💫Instagram Real Indian Likes❤️✨️.', price: '₹100' },
+      "💫Real Indian Followers 🫂✨️ - ₹350": { desc: '💫Real Indian Followers ❤️✨️', price: '₹350' }
+  };
+
+  function updateServiceDetails() {
+      const selectedService = document.getElementById('service').value;
+      const details = serviceData[selectedService];
+      
+      document.getElementById('displayPrice').value = details.price;
+      document.getElementById('displayDesc').value = details.desc;
+  }
   
+  // Initialize dynamic details on load
+  window.onload = function() {
+      updateServiceDetails();
+  };
+
 
   function updateServiceDetails() {
       const selectedService = document.getElementById('service').value;
