@@ -209,7 +209,7 @@
       <h2 id="pricing" style="margin-top:18px">Pricing Plans</h2>
       <div class="grid">
         <div class="card center">
-          <h3>💫world's cheapest Views👀✨️</h3>
+          <h3>💫worlds cheapest Views👀✨️</h3>
           <div class="price">1k views ₹30</div>
           <p class="muted">Fastest🔥 delivery 💫 50k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 1000-Views</p>
           <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
@@ -381,11 +381,11 @@
     });
 
     // TESTIMONIALS (Remains the same)
-    const serviceData = {
-        "💫worlds cheapest Views👀✨️ - ₹30": { id: 'IG-B1', desc: '✨ 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-100-views❤️', price: '₹30' },
-        "💫Instagram Followers 💧💧 - ₹300": { id: 'IG-S2', desc: '🚀 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-100-Followers ❤️', price: '₹300' },
-        "💫Instagram Post Likes❤️✨️ - ₹70": { id: 'IG-P3', desc: '👑 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-likes❤️', price: '₹70' }
-    };
+    const testimonials = [
+      {text:'"बहुत अच्छा काम — हमारे रील्स पर असर दिखा और लोकल ग्राहक बढ़े।"', autor:'— राजेश, छोटे बिजनेस ओनर'},
+      {text:'"संडेशनल सर्विस, रिपोर्ट समय पर मिली।"', autor:'— सीमा, ब्यूटी सैलून'},
+      {text:'"लो-कॉस्ट और हाई इम्पैक्ट — Recommend!"', autor:'— मोहित, रेस्टोरेंट'}
+    ];
     let currentTesti=0;
     function showTesti(i){
       currentTesti=i%testimonials.length;
@@ -418,9 +418,9 @@
 
     // DYNAMIC SERVICE DATA & FUNCTIONS (FIXED)
     const serviceData = {
-        "Basic - ₹499": { id: 'IG-B1', desc: '✨ Daily reach boost, Reel promotion, Basic support. Fast delivery!', price: '₹499' },
-        "Standard - ₹999": { id: 'IG-S2', desc: '🚀 Higher reach, Page growth, Priority support. Recommended.', price: '₹999' },
-        "Premium - ₹1999": { id: 'IG-P3', desc: '👑 Ads promotion, Fast growth, VIP support. Best value!', price: '₹1999' }
+        "💫worlds cheapest Views👀✨️ - ₹30": { id: 'IG-B1', desc: '✨ 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-100-views❤️', price: '₹30' },
+        "💫Instagram Followers 💧💧 - ₹300": { id: 'IG-S2', desc: '🚀 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-100-Followers ❤️', price: '₹300' },
+        "💫Instagram Post Likes❤️✨️ - ₹70": { id: 'IG-P3', desc: '👑 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-likes❤️', price: '₹70' }
     };
 
     function updateServiceDetails() {
@@ -459,4 +459,4 @@
 
 
 </body>
-</html>
+  </html>
