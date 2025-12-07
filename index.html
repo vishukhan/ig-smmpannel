@@ -208,15 +208,15 @@
       <h2 id="pricing" style="margin-top:18px">Pricing Plans</h2>
       <div class="grid">
         <div class="card center">
-          <h3>💫world'scheapestViews👀✨️</h3>
+          <h3>💫world's cheapest Views👀✨️</h3>
           <div class="price">1k views ₹30</div>
           <p class="muted">Fastest🔥 delivery 💫 50k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 1000-Views</p>
              <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
         </div>
 
         <div class="card center">
-          <h3>💫Instagram Real Indian Likes❤️✨️</h3>
-          <div class="price">1k likes ₹100</div>
+          <h3>💫Instagram Indian likes❤️✨️</h3>
+        <div class="price">1k likes ₹100</div>
           <p class="muted">Fastest🔥 delivery 💫 5k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 500-Likes❤️</p>
           <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
         </div>
@@ -421,6 +421,28 @@
   // Initialize
   showTesti(0);
 
+  //order list
+  // DYNAMIC SERVICE DETAILS (UnitySMM Style)
+  const serviceData = {
+      "💫world's cheapest Views👀✨️ - ₹30": { id: 'IG-B1', desc: '💫world's cheapest Views👀✨️.', price: '₹30' },
+      "💫Instagram Real Indian Likes❤️✨️ - ₹100": { id: 'IG-S2', desc: '💫Instagram Real Indian Likes❤️✨️.', price: '₹100' },
+      "💫Real Indian Followers 🫂✨️ - ₹350": { id: 'IG-P3', desc: '💫Real Indian Followers ❤️✨️', price: '₹350' }
+  };
+
+  function updateServiceDetails() {
+      const selectedService = document.getElementById('service').value;
+      const details = serviceData[selectedService];
+      
+      document.getElementById('displayPrice').value = details.price;
+      document.getElementById('displayDesc').value = details.desc;
+  }
+  
+  // Initialize dynamic details on load
+  window.onload = function() {
+      updateServiceDetails();
+  };
+
+
   // WhatsApp auto-order open
   const whatsNumber = '91' + '83078-03553'; // change to your number with country code
   function openWhatsOrder(plan){
@@ -436,6 +458,7 @@
     e.preventDefault();
     const name = document.getElementById('name').value || '—';
     const phone = document.getElementById('phone').value || '—';
+    
     const service = document.getElementById('service').value;
     alert('Thanks '+name+' — We received your enquiry for '+service+". We'll contact you soon.");
     // Here, you could send data to your server via fetch() to save leads
