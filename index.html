@@ -423,77 +423,59 @@
   // auto rotate
   setInterval(()=>{ showTesti((currentTesti+1)%testimonials.length); },6000);
 
-  // Initialize
+  // Initialize Testimonials
   showTesti(0);
 
-  //order list
-  // DYNAMIC SERVICE DETAILS (UnitySMM Style)
-  // DYNAMIC SERVICE DETAILS (UnitySMM Style)
- // const serviceData = {
-     // "💫world's cheapest Views👀✨️ - ₹30": { desc: '💫world's cheapest Views👀✨️.', price: '₹30' },
-     // "💫Instagram Real Indian Likes❤️✨️ - ₹100": {  desc: '💫Instagram Real Indian Likes❤️✨️.', price: '₹100' },
-   //   "💫Real Indian Followers 🫂✨️ - ₹350": { desc: '💫Real Indian Followers ❤️✨️', price: '₹350' }
- // };
-
-  function updateServiceDetails() {
-      const selectedService = document.getElementById('service').value;
-      const details = serviceData[selectedService];
-      
-      document.getElementById('displayPrice').value = details.price;
-      document.getElementById('displayDesc').value = details.desc;
-  }
-  
-  // Initialize dynamic details on load
-  window.onload = function() {
-      updateServiceDetails();
-  };
-
-
-  function updateServiceDetails() {
-      const selectedService = document.getElementById('service').value;
-      const details = serviceData[selectedService];
-      
-      document.getElementById('displayPrice').value = details.price;
-      document.getElementById('displayDesc').value = details.desc;
-  }
-  
-  // Initialize dynamic details on load
-  window.onload = function() {
-      updateServiceDetails();
-  };
-
-// DYNAMIC SERVICE DETAILS (UnitySMM Style)
- const serviceData = {
-     "💫world's cheapest Views👀✨️ - ₹30": { desc: '💫world's cheapest Views👀✨️.', price: '₹30' },
-     "💫Instagram Real Indian Likes❤️✨️ - ₹100": {  desc: '💫Instagram Real Indian Likes❤️✨️.', price: '₹100' },
-    "💫Real Indian Followers 🫂✨️ - ₹350": { desc: '💫Real Indian Followers ❤️✨️', price: '₹350' }
- };
   // WhatsApp auto-order open
   const whatsNumber = '91' + '83078-03553'; // change to your number with country code
+  
+  // Pricing Button Function
   function openWhatsOrder(plan){
-    const text = encodeURIComponent(`Hi, I want to buy your plan: ${plan} Name: Phone:`);
+    const message = `Hi, I want to buy your plan: ${plan} \nName:\nPhone:`; // Use \n, not %0A
+    const text = encodeURIComponent(message);
     const url = `https://wa.me/${whatsNumber}?text=${text}`;
-    window.open(url('https://wa.me/message/MRFDVSDLJC3YA1'),'_blank');
+    window.open(url,'_blank');
   }
   document.getElementById('whatsOrderBtn').addEventListener('click',()=>openWhatsOrder('Interested'));
   document.getElementById('floatWhats').addEventListener('click',(e)=>{ e.preventDefault(); openWhatsOrder('Quick Chat'); });
 
-  // Contact form -> shows toast + (optional) open WhatsApp
+//DYNAMIC SERVICE DETAILS (UnitySMM Style)
+ const serviceData = {
+     "💫world's cheapest Views👀✨️ - ₹30": { desc: '💫world's cheapest Views👀✨️.', price: '₹30' },
+     "💫Instagram Real Indian Likes❤️✨️ - ₹100": {  desc: '💫Instagram Real Indian Likes❤️✨️.', price: '₹100' },
+     "💫Real Indian Followers 🫂✨️ - ₹350": { desc: '💫Real Indian Followers ❤️✨️', price: '₹350' }
+  };
+
+  function updateServiceDetails() {
+      const selectedService = document.getElementById('service').value;
+      const details = serviceData[selectedService];
+      
+      document.getElementById('displayPrice').value = details.price;
+      document.getElementById('displayDesc').value = details.desc;
+  }
+  
+  // Contact form submit logic
   document.getElementById('contactForm').addEventListener('submit',(e)=>{
     e.preventDefault();
     const name = document.getElementById('name').value || '—';
-    const phone = document.getElementById('phone').value || '—';
-    
     const service = document.getElementById('service').value;
     alert('Thanks '+name+' — We received your enquiry for '+service+". We'll contact you soon.");
-    // Here, you could send data to your server via fetch() to save leads
     e.target.reset();
+    updateServiceDetails(); // Reset dynamic fields after submit
   });
+
+  // Contact Form WhatsApp Function (FIXED: No Double Encoding)
   function openWhatsOrderFromForm(){
-    const name = encodeURIComponent(document.getElementById('name').value || '—');
-    const phone = encodeURIComponent(document.getElementById('phone').value || '—');
-    const service = encodeURIComponent(document.getElementById('service').value || '—');
-    const text = encodeURIComponent(`Hi, I want to buy: ${service} %0AName:${name}%0APhone:${phone}`);
+    const name = document.getElementById('name').value || '—';
+    const phone = document.getElementById('phone').value || '—';
+    const service = document.getElementById('service').value || '—';
+    
+    // Build message with \n for new lines
+    const message = `Hi, I want to buy: ${service} \nName:${name}\nPhone:${phone}`;
+    
+    // Encode the entire final message string ONLY ONCE
+    const text = encodeURIComponent(message); 
+    
     window.open(`https://wa.me/${whatsNumber}?text=${text}`,'_blank');
   }
 
@@ -511,7 +493,12 @@
   // small accessibility: close banner with Esc
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') document.getElementById('topBanner').style.display='none' });
 
+  // Initialize Dynamic Fields on Load
+  window.onload = function() {
+      updateServiceDetails();
+  };
 </script>
+
 
 </body>
         </html>
