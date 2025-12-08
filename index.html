@@ -1,297 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Social Media Growth Service - Turbo Socials </title>
-<!--
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Social Media Growth Service - Vishukhan</title>
+    <style>
+        /* BASIC CSS STYLES */
+        :root {
+            --primary: #f06; /* Pink */
+            --primary-light: #ff8cbf;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f8f8;
+            --border-color: #eee;
+        }
+        [data-theme="dark"] {
+            --primary: #f06;
+            --primary-light: #ff8cbf;
+            --text-color: #f0f0f0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: var(--border-color);
+        }
+        /* Card & Layout */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-top: 0;
+            color: var(--primary);
+        }
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.3s;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        /* Hero Section */
+        #hero {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
+        }
+        #hero h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        /* Contact Form */
+        .contact {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .contact .left { flex: 1; min-width: 300px; }
+        .contact .right { flex: 1; min-width: 300px; }
+        .contact form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .contact form input, .contact form select, .contact form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .contact form input[readonly], .contact form textarea[readonly] {
+            background-color: var(--border-color);
+            cursor: default;
+        }
+        .muted { color: gray; font-size: 0.9em; }
+        
+        /* Testimonials */
+        #testimonials { text-align: center; }
+        #testiText { min-height: 100px; margin-bottom: 20px; }
+        .autor { font-style: italic; color: var(--primary); }
+        .dots { margin-top: 10px; }
+        .dot { 
+            height: 10px; width: 10px; margin: 0 5px; 
+            background-color: var(--border-color); border-radius: 50%; 
+            display: inline-block; cursor: pointer;
+        }
+        .dot.active { background-color: var(--primary); }
+        
+        /* Highlights Section Styles */
+        #highlights {
+            padding: 20px 0;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .highlight-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .highlight-item {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .highlight-item h3 {
+            color: var(--primary);
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        .highlight-icon {
+            font-size: 40px;
+        }
 
-  Full single-file HTML template with:
-  - WhatsApp Auto Order Button
-  - Razorpay demo payment integration (placeholder key)
-  - Testimonials slider
-  - Dark theme toggle
-  - Floating WhatsApp chat icon
-  - Social icons in footer
-  - Top banner notification
-  - Mobile-style hamburger menu
-  - Responsive + accessible
--->
 
-<style>
-  :root{
-    --bg:#f6f6f8;
-    --card:#ffffff;
-    --accent:#ff0066;
-    --text:#111;
-    --muted:#666;
-    --shadow: 0 6px 20px rgba(17,17,17,0.06);
-  }
-  [data-theme="dark"]{
-    --bg:#0b0b0d;
-    --card:#0f1113;
-    --accent:#ff4da6;
-    --text:#eee;
-    --muted:#b8bcc0;
-    --shadow: 0 6px 20px rgba(0,0,0,0.7);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased}
-
-  /* Top banner */
-  .top-banner{background:linear-gradient(90deg,var(--accent),#ff66a3); color:white; padding:10px 16px; text-align:center; font-weight:700}
-  .top-banner .close{float:right;margin-right:12px;cursor:pointer}
-
-  header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:transparent}
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#ff8ab3);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:18px}
-  nav.primary{display:flex;gap:12px;align-items:center}
-  nav.primary a{color:var(--text);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
-  .cta{background:var(--accent);color:white;padding:10px 16px;border-radius:999px;text-decoration:none;font-weight:700}
-
-  /* hero */
-  .hero{max-width:1100px;margin:18px auto;padding:28px;background:var(--card);border-radius:12px;box-shadow:var(--shadow);display:flex;gap:22px;align-items:center}
-  .hero-left{flex:1}
-  .hero h1{margin:0;font-size:28px}
-  .hero p{color:var(--muted);margin:8px 0 16px}
-  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-  .btn{display:inline-block;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:700}
-  .btn-primary{background:var(--accent);color:white}
-  .btn-outline{border:2px solid var(--accent);color:var(--accent);background:transparent}
-
-  /* pricing cards */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
-  .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.03)}
-  .price{font-size:26px;font-weight:800;margin:10px 0}
-
-  /* testimonials */
-  .testi-wrap{display:flex;gap:16px;align-items:center}
-  .testi{flex:1}
-  .testi p{font-size:16px;color:var(--muted)}
-  .testi .autor{font-weight:700;margin-top:8px}
-  .slider-controls{display:flex;gap:8px;margin-top:12px}
-  .dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.12);cursor:pointer}
-  .dot.active{background:var(--accent)}
-
-  /* contact */
-  .contact{display:flex;gap:20px;flex-wrap:wrap}
-  .contact .left{flex:1}
-  .contact .right{max-width:380px;width:100%}
-  form label{display:block;margin-bottom:6px;font-size:14px}
-  input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:var(--text)}
-  textarea{min-height:120px}
-
-  footer{margin-top:28px;padding:20px;text-align:center;color:var(--muted)}
-  .socials{display:flex;gap:12px;justify-content:center;margin-top:8px}
-  .socials a{text-decoration:none;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)}
-
-  /* floating whatsapp */
-  .whats-float{position:fixed;right:18px;bottom:18px;z-index:999;display:flex;flex-direction:column;gap:12px}
-  .whats-btn{background:#25D366;color:white;padding:12px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(37,211,102,0.18);text-decoration:none;font-weight:700}
-  .whats-label{display:none}
-  @media(min-width:700px){.whats-label{display:inline-block}}
-
-  /* mobile menu */
-  .hamburger{display:inline-flex;flex-direction:column;gap:4px;cursor:pointer}
-  .hamburger span{width:22px;height:2px;background:var(--text);display:block}
-  .mobile-menu{position:fixed;right:12px;top:68px;background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow);display:none}
-
-  /* responsive */
-  @media(max-width:900px){
-    .hero{flex-direction:column;align-items:flex-start}
-    nav.primary{display:none}
-    .mobile-toggle{display:inline-block}
-  }
-
-  /* small tweaks */
-  .muted{color:var(--muted)}
-  .center{text-align:center}
-</style>
+        /* Floating WhatsApp Button */
+        #floatWhats {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #25d366; 
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-decoration: none;
+            font-size: 24px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="top-banner" id="topBanner">
-    Special Offer Today — Get 20% OFF on Premium Plan! <span class="close" role="button" aria-label="Close banner" onclick="document.getElementById('topBanner').style.display='none'">✕</span>
-  </div>
+    <header>
+        <div class="logo">IG Growth</div>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#contact">Order Now</a>
+            <button id="themeToggle" class="btn btn-outline" style="margin-left: 10px;">☀️/🌙</button>
+        </nav>
+    </header>
 
-  <header>
-     <div class="brand">
-      <div class="logo" aria-hidden>
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="3" width="18" height="18" rx="5" stroke="white" stroke-width="2" fill="none"/>
-          <circle cx="12" cy="12" r="5" stroke="white" stroke-width="2" fill="none"/>
-          <circle cx="17.5" cy="6.5" r="1.5" fill="white"/>
-        </svg>
-      </div>
-      <div>
-        <div style="font-weight:800">InstagramGrowth</div>
-        <div class="muted" style="font-size:12px">Social Media Growth Service</div>
-      </div>
-    </div>
-
-    <nav class="primary" aria-label="Main navigation">
-      <a href="#https://wa.me/message/MRFDVSDLJC3YA1">Services</a>
-      <a href="#https://wa.me/message/MRFDVSDLJC3YA1">Pricing</a>
-      <a href="#https://wa.me/message/MRFDVSDLJC3YA1">Contact</a>
-      <a class="cta" href="#https://wa.me/message/MRFDVSDLJC3YA1">Get Started</a>
-    </nav>
-
-    <div style="display:flex;align-items:center;gap:12px">
-      <button id="themeToggle" class="btn" title="Toggle dark mode">🌓</button>
-      <div class="mobile-toggle" style="display:none">
-        <div class="hamburger" onclick="toggleMobileMenu('https://wa.me/message/MRFDVSDLJC3YA1')" aria-label="Open menu" role="button">
-          <span></span><span></span><span></span>
+    <section id="hero">
+        <h1>Grow your Social Presence — Fast & Safe</h1>
+        <p>Instagram, YouTube, and Telegram services at the cheapest prices in the market. Trusted by thousands of users.</p>
+        <div style="margin-top: 20px;">
+            <a href="#contact" class="btn btn-primary">Place New Order</a>
+            <a onclick="openWhatsOrder('Quick Chat')" class="btn btn-outline" style="margin-left: 10px;">Quick Chat on WhatsApp</a>
         </div>
-      </div>
-    </div>
-
-  </header>
-
-  <div id="mobileMenu" class="mobile-menu" role="menu">
-    <a href="#https://wa.me/message/MRFDVSDLJC3YA1">Services</a><br/>
-    <a href="#https://wa.me/message/MRFDVSDLJC3YA1">Pricing</a><br/>
-    <a href="#https://wa.me/message/MRFDVSDLJC3YA1">Testimonials</a><br/>
-    <a href="#https://wa.me/message/MRFDVSDLJC3YA1">Contact</a><br/>
-    <a class="cta" href="#https://wa.me/message/MRFDVSDLJC3YA1">Get Started</a>
-  </div>
-
-  <!-- HERO -->
-  <main style="padding:12px">
-    <section class="hero" aria-labelledby="heroTitle">
-      <div class="hero-left">
-        <h1 id="heroTitle">Grow your Instagram & Social Presence — Fast & Safe</h1>
-        <p class="muted">Organic strategies, paid ads promotion, content & page management — tailored for small businesses, creators and local brands.</p>
-
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#https://wa.me/message/MRFDVSDLJC3YA1">View Plans</a>
-          <a class="btn btn-outline" id="whatsOrderBtn" href="#https://wa.me/message/MRFDVSDLJC3YA1">Order on WhatsApp</a>
-          <a class="btn" href="https://wa.me/message/MRFDVSDLJC3YA1">Pay ₹10</a>
-        </div>
-
-        <div style="margin-top:14px;color:var(--muted);font-size:14px">Phone / WhatsApp: <strong>83078-03553</strong> · Email: <strong>vk892466@gmail.com</strong></div>
-      </div>
-
-      <div style="min-width:260px;max-width:360px">
-        <div class="card">
-          <h3 style="margin:0">Why choose us?</h3>
-          <ul style="margin-top:8px;color:var(--muted)">
-            <li>Ads + Organic combo</li>
-            <li>Transparent Reports</li>
-            <li>Local targeting (Hisar & Haryana)</li>
-          </ul>
-        </div>
-      </div>
     </section>
 
-    <!-- SERVICES & PRICING -->
-    <section id="services" class="card" style="max-width:1100px;margin:18px auto;border-radius:12px">
-      <h2>Services</h2>
-      <p class="muted">हम अपने क्लाइंट्स को निम्न सेवाएं देतें हैं —</p>
-      <div class="grid" style="margin-top:12px">
-        <div class="card">
-          <h3>Instagram Reel Promotion</h3>
-          <p class="muted">Organic reach boost with targeted ads.</p>
-        </div>
-        <div class="card">
-          <h3>Facebook Ads </h3>
-          <p class="muted">Local audience targeting & conversions.</p>
-        </div>
-        <div class="card">
-          <h3>Page Management</h3>
-          <p class="muted">Daily posting, comments, messages handling.</p>
-        </div>
-        <div class="card">
-          <h3>Content Strategy</h3>
-          <p class="muted">Hashtag, caption & posting schedule.</p>
-        </div>
-      </div>
-
-      <h2 id="pricing" style="margin-top:18px">Pricing Plans</h2>
-      <div class="grid">
-        <div class="card center">
-          <h3>💫worlds cheapest Views👀✨️</h3>
-          <div class="price">1k views ₹30</div>
-          <p class="muted">Fastest🔥 delivery 💫 50k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 1000-Views</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-          </div>
-
-        <div class="card center">
-          <h3>💫Instagram Indian likes❤️✨️</h3>
-        <div class="price">1k likes ₹100</div>
-          <p class="muted">Fastest🔥 delivery 💫 5k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 500-Likes❤️</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-
-        <div class="card center">
-          <h3>💫Instagram Followers 💧💧(Zero Non-Drop)💧💧</h3>
-          <div class="price">1k Followers ₹300</div>
-          <p class="muted">Fastest🔥 delivery 💫 50k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 300-Followers🫂💖</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-        <div class="card center">
-          <h3>💫Real Indian Followers🫂✨️</h3>
-          <div class="price"> 1k Indian Followers ₹350</div>
-          <p class="muted">Fastest🔥 delivery 💫 5k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 200-Followers🫂💖</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-        <div class="card center">
-          <h3>💫Instagram Real Followers🫂✨️</h3></h3>
-          <div class="price">1K followers ₹400</div>
-          <p class="muted">🔥🔥Ultra-Fast🔥 delivery 💫 2M🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 500-Followers🫂💖</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-        <div class="card center">
-          <h3>Premium</h3>
-          <div class="price">1k followers ₹300</div>
-          <p class="muted">Fastest🔥 delivery 💫 50k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 500-Followers🫂💖t</p>
-         <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-        <div class="card center"
-          <h3>💫Instagram Cheaper Followers🫂✨️</h3>
-          <div class="price">1k followers ₹200</div>
-          <p class="muted">Instant 🔥 delivery 💫 5k🫂 followers/Day-speed⚡️⚡️⚡️ minimum order 100-Followers🫂💖</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order </button>
-          </div>
-        <div class="card center">
-          <h3>💫Instagram Post Likes❤️✨️</h3>
-          <div class="price">1k likes ₹70</div>
-          <p class="muted">🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-likes❤️</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-        <div class="card center">
-          <h3>💫Instagram. Post Likes❤️✨️</h3>
-          <div class="price">₹45</div>
-          <p class="muted">Instant🔥 delivery💫 10k❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-likes❤️.</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-        <div class="card center">
-          <h3>💫Instagram Post Likes❤️✨️</h3>
-          <div class="price">1k likes ₹55</div>
-          <p class="muted">Fastest🔥 delivery💫 50K❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-likes❤️. <p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-        <div class="card center">
-          <h3>💫Instagram Reels views👀✨️</h3>
-          <div class="price">1k views ₹15</div>
-          <p class="muted">Fast delivery💫 10m👀views/day-speed⚡️⚡️ minimum order 100-views·</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-        <div class="card center">
-          <h3>💫Instagram Reels views👀✨️</h3>
-          <div class="price">1k views ₹10</div>
-          <p class="muted">Fastest🔥 delivery 💫 50K👀 views/Day-speed⚡️⚡️⚡️ minimum order 100-views</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div)
-        <div class="card center">
-          <h3>💫Instagram Reels Views👀✨️</h3>
-          <div class="price">1k views ₹5</div>
-          <p class="muted">Instant🔥 delivery 💫 10k👀 views/Day-speed⚡️⚡️⚡️ minimum order 100-views</p>
-          <button type="button" class="btn btn-primary" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Order</button>
-        </div>
-       </div>
+    <section id="services" class="card">
+        <h2>Our Services</h2>
+        <p>We provide a wide range of services for all major social media platforms, including targeted and non-drop packages.</p>
+        <ul>
+            <li>**Instagram:** Followers (Indian/Real), Likes, Views, Story services.</li>
+            <li>**Telegram:** Members (Real/Premium), Views (Last/Future), Reactions, Bots, and Spam Services.</li>
+            <li>**YouTube:** Views, Likes, Subscribers (Non-Drop), Comments.</li>
+            <li>**24/7 Priority Support:** Dedicated support team for quick assistance.</li>
+        </ul>
     </section>
 
-    <!-- TESTIMONIALS -->
     <section id="testimonials" class="card">
         <h2>What Our Clients Say</h2>
         <div id="testiText" style="margin-bottom: 20px;">
@@ -303,69 +243,269 @@
         </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="card" style="max-width:1100px;margin:18px auto;display:block">
-      <h2>Contact & Enquiry</h2>
-      <div class="contact">
-        <div class="left">
-          <p class="muted">WhatsApp पर ऑर्डर करने के लिए नीचे वाला बटन दबाइए — या फॉर्म भरिए और हम आपसे संपर्क करेंगे।</p>
-          <div style="margin-top:12px">
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <a class="btn btn-primary" href="https://wa.me/message/MRFDVSDLJC3YA1">Order on WhatsApp</a>
-               <button type="button" class="btn btn-outline" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Pay ₹10</button>
-           </div>
-          </div>
-        </div>
-        <div class="right">
-          <form id="contactForm">
-            <label for="name">Name</label>
-            <input id="name" name="name" required placeholder="Your name" />
-            <label for="phone">Phone / WhatsApp</label>
-            <input id="phone" name="phone" required placeholder="99999-88888" />
-
-            <label for="service">Select Plan (Service)</label>
-            <select id="service" name="service" onchange="updateServiceDetails()">
-              <option value="💫world's cheapest Views👀✨️ - ₹30"> 💫world scheapestViews👀✨️ - ₹30 </option>
-              <option value="💫Instagram Indian Likes❤️✨️ - ₹100"> 💫Instagram Indian likes❤️✨️ - ₹100 </option>
-              <option value="💫Real Indian Followers 🫂✨️- ₹300"> 💫Real Indian Followers 🫂✨️ - ₹300 </option>
-            </select>
-            
-            <label for="displayDesc">Description</label>
-            <textarea id="displayDesc" readonly rows="3" style="min-height:50px">—</textarea>
-            
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Any details (optional)"></textarea>
-            <div style="display:flex;gap:8px;margin-top:10px">
-              <button type="submit" class="btn btn-primary" onclick="openWhatsOrder('https://wa.me/message/MRFDVSDLJC3YA1')">Send</button>
-              <button type="button" class="btn btn-outline" onclick="openWhatsOrderFromForm('https://wa.me/message/MRFDVSDLJC3YA1')">Send Now WhatsApp </button>
+        <h2>Place New Order</h2>
+        <div class="contact">
+            <div class="left">
+                <p class="muted">फॉर्म भरकर सीधे हमारे Google Sheet database में ऑर्डर भेजें। आपकी जानकारी गोपनीय रहेगी।</p>
+                <div style="margin-top:12px">
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <a class="btn btn-primary" onclick="openWhatsOrder('General Enquiry')">Order on WhatsApp</a>
+              
+                    </div>
+                </div>
             </div>
-          </form>
-        </div>
 
+            <div class="right">
+                <form id="contactForm" method="POST" action="['https://docs.google.com/forms/d/e/1FAIpQLSfgsTRovS6XtJ8j0sFXRYqh4mfJB26DHraTotGhtm7Z9Uk1YA/viewform?usp=dialog']">
+                    
+                    <label for="name">Name</label>
+                    <input id="name" name="entry.525618696" required placeholder="Your name" />
+
+                    <label for="phone">Phone / WhatsApp</label>
+                    <input id="phone" name="entry.902063623" required placeholder="99999-88888" />
+
+                    <label for="mainService">Select Main Service</label>
+                    <select id="mainService" name="entry.1962226386" onchange="updatePackages()">
+                        <option value="">-- Select Service --</option>
+                        <option value="Instagram">📷 Instagram (Followers/Likes/Views)</option>
+                        <option value="Telegram">✈️ Telegram (Members/Views/Reactions)</option>
+                        <option value="YouTube">▶️ YouTube (Views/Subscribers/Likes)</option>
+                        <option value="Twitter">✖️ Twitter (Followers/Likes/Views)</option>
+                        <option value="General">📞 General Enquiry</option>
+                    </select>
+
+                    <label for="package">Select Package & Price</label>
+                    <select id="package" name="entry.331095667" onchange="updateServiceDetails()" disabled>
+                        <option value="">-- Select Main Service First --</option>
+                    </select>
+
+                    <label for="displayPrice">Price</label>
+                    <input id="displayPrice" readonly value="—" />
+                    
+                    <label for="displayDesc">Description</label>
+                    <textarea id="displayDesc" readonly rows="3" style="min-height:50px">—</textarea>
+
+                    <label for="message">Link / Username</label>
+                    <input id="message" name="entry.1743693186" placeholder="Profile Link or Username (Required for Order)" />
+
+                    <input type="hidden" id="currentTime" name="entry.963017423" value="">
+
+
+                    <div style="margin-top:20px"> 
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Send Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <section id="highlights">
+        <h2>Why Choose Us?</h2>
+        <div class="highlight-grid">
+            <div class="highlight-item">
+                <div class="highlight-icon">💰</div>
+                <h3>Cheapest Price</h3>
+                <p>Our prices are the lowest in the market without compromising quality.</p>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon">⏳</div>
+                <h3>Fast Delivery</h3>
+                <p>Your orders will be delivered in minutes, ensuring rapid growth.</p>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon">🧑‍💻</div>
+                <h3>24/7 Support</h3>
+                <p>We're here to help you at any time with dedicated priority support.</p>
+            </div>
+        </div>
     </section>
 
-  </main>
-
-  <!-- floating whatsapp -->
-  <div class="whats-float" aria-hidden>
-    <a class="whats-btn" id="floatWhats" href="https://wa.me/message/MRFDVSDLJC3YA1" title="Chat on WhatsApp" onclick="openWhatsOrder('https://wa.me/message/MRFDVSDLJC3YA1')">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.67 4.33A11.95 11.95 0 0012 0C5.373 0 0 5.373 0 12c0 2.11.553 4.142 1.6 5.94L0 24l6.24-1.6A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-1.89-.4-3.68-1.33-5.34z" fill="#fff" opacity=".02"/><path d="M20.52 3.48A11.66 11.66 0 0012 1.2 11.775 11.775 0 001.5 12c0 2.01.53 3.95 1.54 5.68L2.4 22.8l4.64-1.18A11.68 11.68 0 0012 23.4c6.45 0 11.7-5.25 11.7-11.7 0-1.95-.45-3.84-1.68-5.22z" fill="#25D366"/><path d="M17.1 14.46c-.4-0.2-2.36-1.15-2.72-1.28-.36-.12-.62-.2-.88.19-.26.39-1 1.28-1.22 1.54-.22.26-.44.29-.83.1-.4-.2-1.7-.63-3.24-2-1.2-1.05-2-2.36-2.23-2.76-.23-.39-.02-.6.16-.79.16-.16.36-.4.54-.6.18-.2.24-.36.36-.6.12-.24.06-.45-.03-.64-.09-.2-.88-2.13-1.2-2.92-.31-.76-.63-.67-.88-.68-.22-.01-.47-.01-.72-.01-.24 0-.63.09-.96.44-.33.36-1.26 1.23-1.26 3.03 0 1.8 1.29 3.53 1.47 3.78.18.26 2.55 3.86 6.18 5.4 3.6 1.53 3.6 1.05 4.26.98.66-.06 2.14-.87 2.44-1.71.3-.83.3-1.55.21-1.71-.09-.16-.33-.26-.73-.46z" fill="#fff"/></svg>
-      <span class="whats-label"><button type="button" class="btn btn-primary" onclick')">WhatsApp</button></span>
+    <a onclick="openWhatsOrder('Quick Chat')" id="floatWhats">
+        &#x2709; 
     </a>
-  </div>
 
-  <footer>
-    <div class="muted">© 2025 InstagramGrowth — All rights reserved</div>
-    <div class="socials" aria-label="social links">
-      <a href="https://www.facebook.com/share/1HQxgckMpt/" aria-label="Facebook">Facebook</a>
-      <a href="https://www.instagram.com/teri_jaatni.90?igsh=MTltNndxNnQzODgxdA==">Instagram</a>
-    </div>
-  </footer>
+    <footer style="text-align: center; padding: 20px; font-size: 0.8em; background-color: var(--card-bg); border-top: 1px solid var(--border-color);">
+        <p>&copy; 2025 SMM Growth. All rights reserved.</p>
+    </footer>
 
-<!-- Scripts -->
 
 <script>
-    // THEME TOGGLE (Remains the same)
+    // WHATSAPP NUMBER
+    const whatsNumber = '918307803553'; 
+    
+    // ===================================================================================
+    // 🛑 2. STEP 1: APNI GOOGLE FORM ENTRY IDS YAHAN BHAREIN!
+    // ===================================================================================
+
+    // Google Form ke Price aur Description fields ki Entry IDs yahan aayengi.
+    // Aapko in entry.xxxxxxxxxx IDs ko apne Google Form se nikalkar replace karna hoga.
+    const GOOGLE_FORM_ENTRY_IDS = {
+        // Example IDs: Inhey badalna zaroori hai!
+        PRICE_ID: 'entry.1067275892',      
+        DESC_ID: 'entry.881822753',
+        // Optional: Current Time field ki ID
+        TIME_ID: 'entry.963017423', 
+        
+        // Note: Name, Phone, Service, Package, Link IDs ko upar HTML mein daal diya gaya hai.
+    };
+    
+    // ----------------------------------------------
+    // DYNAMIC CHAIRNED SERVICE DATA STRUCTURE
+    // ----------------------------------------------
+    const servicePackages = {
+        "Instagram": [
+            { name: "IG Indian Followers [100% Real]", price: "₹350", desc: "🚀 Guaranteed real Indian accounts, low drop rate, high quality." },
+            { name: "IG World's Cheapest Followers 🔥", price: "₹250", desc: "💰 Cheapest followers globally (may include mixed quality). Ultrafast delivery." },
+            { name: "IG Likes [NonDrop] 🍼", price: "₹60", desc: "❤️ Likes that won't drop, stable and reliable service." },
+            { name: "IG Reels Views [SuperFast]", price: "₹5", desc: "🎥 Superfast views for reels and videos." },
+            { name: "IG Comments [Custom] Targeted", price: "₹100", desc: "💬 Custom comments from targeted or specific profiles." }
+        ],
+        "Telegram": [
+            { name: "Telegram Members Indian 🇮🇳 | Best", price: "₹500", desc: "🇮🇳 Market's best Indian members, low drop. Superfast delivery." },
+            { name: "Telegram Zero Drop Member [cheapest]", price: "₹650", desc: "🔒 Guaranteed non-drop members for long-term growth." },
+            { name: "Telegram - Last Posts Views | CHEAPEST", price: "₹50", desc: "👁️ Views on the last 5-10 posts, very low price." },
+            { name: "Telegram Premium Post Reaction 👍💖", price: "₹300", desc: "🤩 Premium reactions on your posts, includes statistics." },
+            { name: "Telegram Ban [ Spam ] Services", price: "₹1500", desc: "🚫 Service to ban spam profiles or competitors' accounts." }
+        ],
+        "YouTube": [
+            { name: "YouTube Subscribers [Non Drops]", price: "₹2999", desc: "⭐ High-retention subscribers. Helps boost channel authority." },
+            { name: "YouTube - Video Views | Cheapest", price: "₹100", desc: "🎥 Cheapest views from own server, fast delivery." },
+            { name: "YouTube [Live Stream] High Ranking", price: "₹1500", desc: "🔴 Views for live streams to boost ranking and visibility." },
+            { name: "YouTube - Indian Comments", price: "₹450", desc: "💬 Real Indian comments on your video." }
+        ],
+        "Twitter": [
+            { name: "Twitter Likes [Provider] 💥 Working", price: "₹200", desc: "❌ Twitter Likes from a reliable provider." },
+            { name: "Twitter Followers", price: "₹400", desc: "❌ Regular quality Twitter followers." },
+            { name: "Twitter Views [Provider] 🔥", price: "₹150", desc: "❌ Views for your tweets and videos." }
+        ],
+        "General": [
+            { name: "Custom Bulk Order / Other Platform", price: "Varies", desc: "📞 Contact us for custom or bulk service requests for platforms not listed." }
+        ]
+    };
+
+    // ----------------------------------------------
+    // DEPENDENT DROPDOWN LOGIC
+    // ----------------------------------------------
+
+    function updatePackages() {
+        const mainService = document.getElementById('mainService').value;
+        const packageSelect = document.getElementById('package');
+        
+        // Reset package dropdown and detail fields
+        packageSelect.innerHTML = '<option value="">-- Select Package --</option>';
+        document.getElementById('displayPrice').value = '—';
+        document.getElementById('displayDesc').value = '—';
+
+        if (mainService && servicePackages[mainService]) {
+            servicePackages[mainService].forEach(pkg => {
+                const option = document.createElement('option');
+                option.value = pkg.name; // Use package name as value
+                option.textContent = pkg.name;
+                packageSelect.appendChild(option);
+            });
+            packageSelect.disabled = false;
+        } else {
+            packageSelect.disabled = true;
+            packageSelect.innerHTML = '<option value="">-- Select Main Service First --</option>';
+        }
+    }
+
+    function updateServiceDetails() {
+        const selectedPackageName = document.getElementById('package').value;
+        const mainService = document.getElementById('mainService').value;
+        const priceInput = document.getElementById('displayPrice');
+        const descTextarea = document.getElementById('displayDesc');
+
+        // Find the selected package details
+        if (mainService && selectedPackageName) {
+            const selectedPackage = servicePackages[mainService].find(pkg => pkg.name === selectedPackageName);
+            if (selectedPackage) {
+                priceInput.value = selectedPackage.price;
+                descTextarea.value = selectedPackage.desc;
+                return;
+            }
+        }
+        priceInput.value = '—';
+        descTextarea.value = '—';
+    }
+
+
+    // ----------------------------------------------
+    // WHATSAPP FUNCTIONS (Kept for alternative button)
+    // ----------------------------------------------
+
+    // Function 1: For Quick Chat/Pricing Buttons
+    function openWhatsOrder(plan){
+      const message = `Hi, I want to buy your plan: ${plan} \nName:\nPhone:`; 
+      const text = encodeURIComponent(message);
+      const url = `https://wa.me/${whatsNumber}?text=${text}`;
+      window.open(url,'_blank');
+    }
+
+    // ===================================================================================
+    // CONTACT FORM SUBMIT LOGIC (MODIFIED for GOOGLE SHEET SUBMISSION)
+    // ===================================================================================
+
+    document.getElementById('contactForm').addEventListener('submit',(e)=>{
+        // Form submission ko rokna taaki hum hidden fields add kar sakein.
+        e.preventDefault();
+        
+        // 1. Dynamic fields ki value nikalna
+        const price = document.getElementById('displayPrice').value;
+        const desc = document.getElementById('displayDesc').value;
+        
+        // 2. Current Time ko format karna
+        const now = new Date();
+        const formattedTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'short', timeStyle: 'short' });
+        
+        // 3. Hidden fields create/update karna taaki Google Sheet mein data jaaye
+        
+        // Price Field
+        let hiddenPrice = document.querySelector(`input[name="${GOOGLE_FORM_ENTRY_IDS.PRICE_ID}"]`);
+        if (!hiddenPrice) {
+            hiddenPrice = document.createElement('input');
+            hiddenPrice.type = 'hidden';
+            hiddenPrice.name = GOOGLE_FORM_ENTRY_IDS.PRICE_ID;
+            e.target.appendChild(hiddenPrice);
+        }
+        hiddenPrice.value = price;
+        
+        // Description Field
+        let hiddenDesc = document.querySelector(`input[name="${GOOGLE_FORM_ENTRY_IDS.DESC_ID}"]`);
+        if (!hiddenDesc) {
+            hiddenDesc = document.createElement('input');
+            hiddenDesc.type = 'hidden';
+            hiddenDesc.name = GOOGLE_FORM_ENTRY_IDS.DESC_ID;
+            e.target.appendChild(hiddenDesc);
+        }
+        hiddenDesc.value = desc;
+
+        // Current Time Field (Agar aapne Google Form mein yeh field banayi hai)
+        if (GOOGLE_FORM_ENTRY_IDS.TIME_ID) {
+            let hiddenTime = document.getElementById('currentTime');
+            if(hiddenTime) {
+                hiddenTime.name = GOOGLE_FORM_ENTRY_IDS.TIME_ID;
+                hiddenTime.value = formattedTime;
+            }
+        }
+
+        // 4. Form ko dobara submit karna (ab hidden fields ke saath)
+        e.target.submit();
+
+        // 5. User ko feedback dena (form submit hone ke turant baad)
+        const name = document.getElementById('name').value || 'User';
+        alert(`Thanks ${name}! Your order enquiry is being sent to Google Sheets. You will be redirected shortly.`);
+        
+        // NOTE: Form submit hone ke baad page Google Forms ke default thank-you page par redirect ho jayega.
+    });
+
+
+    // ----------------------------------------------
+    // OTHER FUNCTIONS
+    // ----------------------------------------------
+
+    // THEME TOGGLE
     const themeToggle = document.getElementById('themeToggle');
     const root = document.documentElement;
     function applyTheme(t){
@@ -380,7 +520,7 @@
       localStorage.setItem('sn_theme', now);
     });
 
-    // TESTIMONIALS (Remains the same)
+    // TESTIMONIALS (Initialization)
     const testimonials = [
       {text:'"बहुत अच्छा काम — हमारे रील्स पर असर दिखा और लोकल ग्राहक बढ़े।"', autor:'— राजेश, छोटे बिजनेस ओनर'},
       {text:'"संडेशनल सर्विस, रिपोर्ट समय पर मिली।"', autor:'— सीमा, ब्यूटी सैलून'},
@@ -395,51 +535,6 @@
     }
     setInterval(()=>{ showTesti((currentTesti+1)%testimonials.length); },6000);
 
-    // WHATSAPP AUTO-ORDER (Your Number Added and Encoding Fixed)
-    const whatsNumber = '918307803553'; // <<-- Your Corrected WhatsApp number
-    
-    // Function 1: For Pricing Buttons
-    function openWhatsOrder(plan){
-      const message = `Hi, I want to buy your plan: ${plan} \nName:\nPhone:`; 
-      const text = encodeURIComponent(message);
-      const url = `https://wa.me/${whatsNumber}?text=${text}`;
-      window.open(url,'_blank');
-    }
-    
-    // Function 2: For Contact Form Button (FIXED: No Double Encoding)
-    function openWhatsOrderFromForm(){
-      const name = document.getElementById('name').value || '—';
-      const phone = document.getElementById('phone').value || '—';
-      const service = document.getElementById('service').value || '—';
-      const message = `Hi, I want to buy: ${service} \nName:${name}\nPhone:${phone}`;
-      const text = encodeURIComponent(message); 
-      window.open(`https://wa.me/${whatsNumber}?text=${text}`,'_blank');
-    }
-
-    // DYNAMIC SERVICE DATA & FUNCTIONS (FIXED)
-    const serviceData = {
-        "💫worlds cheapest Views👀✨️ - ₹30": { id: 'IG-B1', desc: '✨ 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-100-views❤️', price: '₹30' },
-        "💫Instagram Followers 💧💧 - ₹300": { id: 'IG-S2', desc: '🚀 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-100-Followers ❤️', price: '₹300' },
-        "💫Instagram Post Likes❤️✨️ - ₹70": { id: 'IG-P3', desc: '👑 🔥🔥Ultra-Fast🔥 delivery 💫 1M❤️ likes/Day-speed⚡️⚡️⚡️ minimum order 100-likes❤️', price: '₹70' }
-    };
-
-    function updateServiceDetails() {
-        const selectedService = document.getElementById('service').value;
-        const details = serviceData[selectedService];
-        
-        document.getElementById('displayPrice').value = details.price;
-        document.getElementById('displayDesc').value = details.desc;
-    }
-    
-    // Contact form submit logic
-    document.getElementById('contactForm').addEventListener('submit',(e)=>{
-      e.preventDefault();
-      const name = document.getElementById('name').value || '—';
-      const service = document.getElementById('service').value;
-      alert('Thanks '+name+' — We received your enquiry for '+service+". We'll contact you soon.");
-      e.target.reset();
-      updateServiceDetails(); 
-    });
 
     // Razorpay demo 
     const payDemoBtns = document.querySelectorAll('#payDemoBtn, #payDemoBtn2');
@@ -453,10 +548,10 @@
     // INITIALIZE ON LOAD
     window.onload = function() {
         showTesti(0);
-        updateServiceDetails();
+        updatePackages(); 
     };
 </script>
 
-
 </body>
-  </html>
+</html>
+
