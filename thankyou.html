@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You! Submission Successful</title>
+    <style>
+        /*
+         * --- CSS STYLES ---
+         */
+        :root {
+            --primary-color: #4CAF50; /* A vibrant green for success */
+            --secondary-color: #388E3C;
+            --background-color: #f7f9fc; /* Light, airy background */
+            --card-background: #ffffff;
+            --text-color: #333;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .thank-you-container {
+            background: var(--card-background);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInScale 0.8s ease-out forwards;
+            position: relative; /* For confetti */
+            overflow: hidden; /* To keep confetti inside */
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Success Icon Styling */
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+
+        /* Text Styling */
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Call-to-Action Button */
+        .btn-home {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-home:hover {
+            background-color: #2e7d32;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Confetti Styling (Minimal for this example) */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-color);
+            opacity: 0;
+            animation: fall linear forwards;
+        }
+
+        /* Different colors for confetti */
+        .confetti:nth-child(2n) { background-color: #FFC107; } /* Amber */
+        .confetti:nth-child(3n) { background-color: #2196F3; } /* Blue */
+        .confetti:nth-child(4n) { background-color: #E91E63; } /* Pink */
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, 0) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x-end), var(--y-end)) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="thank-you-container">
+
+        <div class="icon-wrapper">
+            &#10003;
+        </div>
+
+        <h1>Submission Received!</h1>
+        <p>
+            **Thank you for reaching out!** We have successfully received your submission. We truly appreciate you taking the time.
+        </p>
+
+        <p>
+            One of our team members will review your request and get back to you within **24-48 business hours**.
+        </p>
+
+        <a href="https://vishukhan.github.io/Ig-smmpannel/" class="btn-home">
+            Continue Browsing
+        </a>
+
+    </div>
+
+    <script>
+        /*
+         * --- JAVASCRIPT FOR CONFETTI EFFECT ---
+         */
+        const container = document.querySelector('.thank-you-container');
+
+        // Function to create a single confetti piece
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+
+            // Set random initial position near the center top
+            const startX = Math.random() * container.offsetWidth - 50;
+            const startY = 0;
+            
+            // Set random size
+            const size = Math.random() * 8 + 4; // 4px to 12px
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+            confetti.style.left = `${startX}px`;
+            confetti.style.top = `${startY}px`;
+
+            // Set animation properties
+            const duration = Math.random() * 2 + 1.5; // 1.5s to 3.5s
+            confetti.style.animationDuration = `${duration}s`;
+            confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+
+            // Set random end position (outside the container and rotated)
+            const xEnd = (Math.random() - 0.5) * 300; // -150px to 150px
+            const yEnd = container.offsetHeight + 100; // Fall past the bottom
+
+            confetti.style.setProperty('--x-end', `${xEnd}px`);
+            confetti.style.setProperty('--y-end', `${yEnd}px`);
+
+            container.appendChild(confetti);
+
+            // Clean up the element after the animation is finished
+            confetti.addEventListener('animationend', () => {
+                confetti.remove();
+            });
+        }
+
+        // Generate a burst of confetti on page load
+        function launchConfetti(count = 30) {
+            setTimeout(() => {
+                for (let i = 0; i < count; i++) {
+                    createConfetti();
+                }
+            }, 500); // Delay slightly after the main fade-in
+        }
+
+        // Only launch confetti if the container is visible
+        if (container) {
+            launchConfetti();
+        }
+    </script>
+
+</body>
+</html>
