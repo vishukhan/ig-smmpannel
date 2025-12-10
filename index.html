@@ -1,104 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
         <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Instagram-Growth SMM Service</title>
-<style>
-  :root{
-    --bg:#f6f6f8;
-    --card:#ffffff;
-    --accent:#ff0066;
-    --text:#111;
-    --muted:#666;
-    --shadow: 0 6px 20px rgba(17,17,17,0.06);
-  }
-  [data-theme="dark"]{
-    --bg:#0b0b0d;
-    --card:#0f1113;
-    --accent:#ff4da6;
-    --text:#eee;
-    --muted:#b8bcc0;
-    --shadow: 0 6px 20px rgba(0,0,0,0.7);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Social Media Growth Service - Vishukhan</title>
+    <style>
+        /* BASIC CSS STYLES */
+        :root {
+            --primary: #f06; /* Pink */
+            --primary-light: #ff8cbf;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f8f8;
+            --border-color: #eee;
+        }
+        [data-theme="dark"] {
+            --primary: #f06;
+            --primary-light: #ff8cbf;
+            --text-color: #f0f0f0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: var(--border-color);
+        }
+        /* Card & Layout */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-top: 0;
+            color: var(--primary);
+        }
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.3s;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        /* Hero Section */
+        #hero {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
+        }
+        #hero h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        /* Contact Form */
+        .contact {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .contact .left { flex: 1; min-width: 300px; }
+        .contact .right { flex: 1; min-width: 300px; }
+        .contact form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .contact form input, .contact form select, .contact form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .contact form input[readonly], .contact form textarea[readonly] {
+            background-color: var(--border-color);
+            cursor: default;
+        }
+        .muted { color: gray; font-size: 0.9em; }
+        
+        /* Testimonials */
+        #testimonials { text-align: center; }
+        #testiText { min-height: 100px; margin-bottom: 20px; }
+        .autor { font-style: italic; color: var(--primary); }
+        .dots { margin-top: 10px; }
+        .dot { 
+            height: 10px; width: 10px; margin: 0 5px; 
+            background-color: var(--border-color); border-radius: 50%; 
+            display: inline-block; cursor: pointer;
+        }
+        .dot.active { background-color: var(--primary); }
+        
+        /* Highlights Section Styles */
+        #highlights {
+            padding: 20px 0;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .highlight-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .highlight-item {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .highlight-item h3 {
+            color: var(--primary);
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        .highlight-icon {
+            font-size: 40px;
+        }
 
-  /* Top banner */
-  .top-banner{background:linear-gradient(90deg,var(--accent),#ff66a3); color:white; padding:10px 16px; text-align:center; font-weight:700}
-  .top-banner .close{float:right;margin-right:12px;cursor:pointer}
 
-  header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:transparent}
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#ff8ab3);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:18px}
-  /* Logo SVG adjustment */
-  .logo svg{width:30px;height:30px;transform:scale(1.1)}
-  nav.primary{display:flex;gap:12px;align-items:center}
-  nav.primary a{color:var(--text);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
-  .cta{background:var(--accent);color:white;padding:10px 16px;border-radius:999px;text-decoration:none;font-weight:700}
-
-  /* hero */
-  .hero{max-width:1100px;margin:18px auto;padding:28px;background:var(--card);border-radius:12px;box-shadow:var(--shadow);display:flex;gap:22px;align-items:center}
-  .hero-left{flex:1}
-  .hero h1{margin:0;font-size:28px}
-  .hero p{color:var(--muted);margin:8px 0 16px}
-  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-  .btn{display:inline-block;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:700}
-  .btn-primary{background:var(--accent);color:white}
-  .btn-outline{border:2px solid var(--accent);color:var(--accent);background:transparent}
-
-  /* pricing cards */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
-  .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.03)}
-  .price{font-size:26px;font-weight:800;margin:10px 0}
-
-  /* testimonials */
-  .testi-wrap{display:flex;gap:16px;align-items:center}
-  .testi{flex:1}
-  .testi p{font-size:16px;color:var(--muted)}
-  .testi .autor{font-weight:700;margin-top:8px}
-  .slider-controls{display:flex;gap:8px;margin-top:12px}
-  .dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.12);cursor:pointer}
-  .dot.active{background:var(--accent)}
-
-  /* contact */
-  .contact{display:flex;gap:20px;flex-wrap:wrap}
-  .contact .left{flex:1}
-  .contact .right{max-width:380px;width:100%}
-  form label{display:block;margin-bottom:6px;font-size:14px}
-  input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:var(--text)}
-  textarea{min-height:120px}
-
-  footer{margin-top:28px;padding:20px;text-align:center;color:var(--muted)}
-  .socials{display:flex;gap:12px;justify-content:center;margin-top:8px}
-  .socials a{text-decoration:none;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)}
-
-  /* floating whatsapp */
-  .whats-float{position:fixed;right:18px;bottom:18px;z-index:999;display:flex;flex-direction:column;gap:12px}
-  .whats-btn{background:#25D366;color:white;padding:12px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(37,211,102,0.18);text-decoration:none;font-weight:700}
-  .whats-label{display:none}
-  @media(min-width:700px){.whats-label{display:inline-block}}
-
-  /* mobile menu */
-  .hamburger{display:inline-flex;flex-direction:column;gap:4px;cursor:pointer}
-  .hamburger span{width:22px;height:2px;background:var(--text);display:block}
-  .mobile-menu{position:fixed;right:12px;top:68px;background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow);display:none}
-
-  /* responsive adjustments for PC */
-  @media(max-width:900px){
-    .hero{flex-direction:column;align-items:flex-start}
-    nav.primary{display:none}
-    .mobile-toggle{display:inline-block}
-  }
-  @media(min-width:900px){
-    .hero h1{font-size:36px}
-    .card{padding:24px}
-  }
-
-  /* small tweaks */
-  .muted{color:var(--muted)}
-  .center{text-align:center}
-</style>
+        /* Floating WhatsApp Button */
+        #floatWhats {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #25d366; 
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-decoration: none;
+            font-size: 24px;
+        }
+    </style>
         </head>
 <body>
 
@@ -229,12 +330,9 @@
         </div>
     </section>
 
-    <div class="whats-float" aria-hidden>
-    <a class="whats-btn" id="floatWhats" href="#" title="Chat on WhatsApp" onclick="openWhatsOrder('Quick Message')">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.67 4.33A11.95 11.95 0 0012 0C5.373 0 0 5.373 0 12c0 2.11.553 4.142 1.6 5.94L0 24l6.24-1.6A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-1.89-.4-3.68-1.33-5.34z" fill="#fff" opacity=".02"/><path d="M20.52 3.48A11.66 11.66 0 0012 1.2 11.775 11.775 0 001.5 12c0 2.01.53 3.95 1.54 5.68L2.4 22.8l4.64-1.18A11.68 11.68 0 0012 23.4c6.45 0 11.7-5.25 11.7-11.7 0-1.95-.45-3.84-1.68-5.22z" fill="#25D366"/><path d="M17.1 14.46c-.4-0.2-2.36-1.15-2.72-1.28-.36-.12-.62-.2-.88.19-.26.39-1 1.28-1.22 1.54-.22.26-.44.29-.83.1-.4-.2-1.7-.63-3.24-2-1.2-1.05-2-2.36-2.23-2.76-.23-.39-.02-.6.16-.79.16-.16.36-.4.54-.6.18-.2.24-.36.36-.6.12-.24.06-.45-.03-.64-.09-.2-.88-2.13-1.2-2.92-.31-.76-.63-.67-.88-.68-.22-.01-.47-.01-.72-.01-.24 0-.63.09-.96.44-.33.36-1.26 1.23-1.26 3.03 0 1.8 1.29 3.53 1.47 3.78.18.26 2.55 3.86 6.18 5.4 3.6 1.53 3.6 1.05 4.26.98.66-.06 2.14-.87 2.44-1.71.3-.83.3-1.55.21-1.71-.09-.16-.33-.26-.73-.46z" fill="#fff"/></svg>
-      <span class="whats-label">WhatsApp</span>
+    <a onclick="openWhatsOrder('Quick Chat')" id="floatWhats">
+        &#x2709; 
     </a>
-    </div>
 
     <footer style="text-align: center; padding: 20px; font-size: 0.8em; background-color: var(--card-bg); border-top: 1px solid var(--border-color);">
         <p>&copy; 2025 SMM Growth. All rights reserved.</p>
