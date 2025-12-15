@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ग्राहक समीक्षा सबमिट करें</title>
+    <style>
+        /* यहाँ CSS कोड (सेक्शन 2) पेस्ट करें */
+          /* BASIC CSS STYLES */
+        :root {
+            --primary: #f06; /* Pink */
+            --primary-light: #ff8cbf;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f8f8;
+            --border-color: #eee;
+        }
+        [data-theme="dark"] {
+            --primary: #f06;
+            --primary-light: #ff8cbf;
+            --text-color: #f0f0f0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+
+header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 90%;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            background-color:linear-gradient(135deg,var(--primary),#ff8ab3);
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: var(--border-color);
+        }
+        
+        
+        
+.container {
+   
+    background-color: var(--bg-color);
+    max-width: 500px;
+    width: 90%;
+    padding: 20px;
+    
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+    
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    color: var(--text-color);
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    
+}
+input {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+input[type="text"], textarea {
+    width: 100%;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 25px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.loading-message {
+    margin-top: 15px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* -------------------
+   रेटिंग स्टार्स CSS
+   ------------------- */
+.rating-box {
+    direction: rtl;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.rating-box input {
+    display: none;
+}
+
+.rating-box label {
+    font-size: 2.5em;
+    color: #ccc;
+    padding: 5px;
+    cursor: pointer;
+    transition: color 0.2s;
+    display: inline-block;
+    margin: 0 -2px; /* स्टार्स को पास लाने के लिए */
+}
+
+/* होवर इफ़ेक्ट */
+.rating-box label:hover,
+.rating-box label:hover ~ label {
+    color: #ffd700;
+}
+
+/* चेक होने पर इफ़ेक्ट */
+.rating-box input:checked ~ label {
+    color: #ffd700;
+}
+
+
+/* -------------------
+   मॉडेल/पॉप-अप CSS
+   ------------------- */
+.modal {
+    display: none; /* शुरू में छिपा हुआ */
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* काला/पारदर्शी बैकग्राउंड */
+    color: var(--text-color);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+ .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.3s;
+            text-align: center;
+        }
+.btn:hover {
+            opacity: 0.8;
+        }
+       
+    </style>
+</head>
+<body>
+        <header>
+        <div class="brand">
+         <div class="logo" aria-hidden>
+        <a href="https://www.instagram.com/world_widepromotion?igsh=cnh0Mnc1cWhkM3p1">
+                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="5" stroke="red" stroke-width="2" fill="none"/>
+          <circle cx="12" cy="12" r="5" stroke="red" stroke-width="2" fill="none"/>
+          <circle cx="17.5" cy="6.5" r="1.5" fill="red"/>
+        </svg>
+        </a>
+         </div>
+        </div>
+        <nav>
+            <a href="index.html"> Home</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Order Now</a>
+                <button id="themeToggle" class="btn" title="Toggle dark mode">🌓</button>
+        </nav>
+    </header>
+
+
+
+
+
+    <div class="container">
+        
+        <form id="reviewForm" class="review-form">
+            <h2 style="color: var(--primary)">⭐ अपनी समीक्षा साझा करें</h2>
+            <p>आपका फीडबैक हमारे लिए बहुत मायने रखता है!</p>
+
+            <label for="clientName">आपका नाम:</label>
+            <input type="text" id="clientName" name="clientName" required placeholder="उदाहरण: रमेश कुमार">
+
+            <label>सर्विस रेटिंग:</label>
+            <div class="rating-box">
+                <input type="radio" id="star5" name="rating" value="5" required><label for="star5">★</label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+            </div>
+
+            <label for="reviewText">अपनी समीक्षा लिखें:</label>
+            <textarea id="reviewText" name="reviewText" rows="4" placeholder="हमें बताएं कि आपको हमारी सर्विस कैसी लगी।"></textarea>
+            
+            <button type="submit" class="submit-button">समीक्षा जमा करें</button>
+            <div id="message" class="loading-message"></div>
+        </form>
+
+        <div id="thankYouCard" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div id="cardDetails">
+                    </div>
+                <button class="btn">OK</button>
+            </div>
+        </div>
+
+    </div>
+    
+    <footer style="text-align: center; padding: 20px; font-size: 0.8em; background-color: var(--card-bg); border-top: 1px solid var(--border-color);">
+        <p>&copy; 2025 SMM Growth. All rights reserved.</p>
+    </footer>
+
+    <script>
+        /* यहाँ JavaScript कोड (सेक्शन 3) पेस्ट करें */
+        // =========================================================================
+// 🛑 1. GOOGLE FORM ENTRY CONFIGURATION (सबसे ज़रूरी)
+// =========================================================================
+
+// !!! इसे अपने Google Form के SUBMISSION ENDPOINT से बदलें !!!
+const SUBMIT_ENDPOINT = "https://docs.google.com/forms/d/e/1FAIpQLSdhkA5UY6weMzQNJZr_b0FVgNJwgE15sKKGQIEhQ2W9aFMasw/formResponse"; 
+
+// !!! अपने Google Form के Entry IDs को बदलें !!!
+// (ये IDs आपको Google Form के "pre-filled link" से मिलेंगी)
+const NAME_ENTRY   = "entry.9210209"; 
+const RATING_ENTRY = "entry.986375863"; 
+const TEXT_ENTRY   = "entry.479764091"; 
+
+
+// =========================================================================
+// 2. DOM ELEMENTS और HELPER FUNCTIONS
+// =========================================================================
+
+const thankYouCard = document.getElementById('thankYouCard'); 
+const reviewForm = document.getElementById('reviewForm'); 
+// closeButtons को .modal-content के अंदर परिभाषित किया जाना चाहिए
+const closeButtons = document.querySelectorAll('.modal-content .close-button, .modal-content .btn'); 
+
+
+// फंक्शन: स्टार आइकन बनाना
+function getStars(ratingValue) {
+    const fullStar = '★';
+    const emptyStar = '☆';
+    const numRating = parseInt(ratingValue); 
+    if (isNaN(numRating) || numRating < 1 || numRating > 5) return ''; 
+    
+    // गोल्ड स्टार्स
+    return `<span style="color: #ffd700;">${fullStar.repeat(numRating)}</span>${emptyStar.repeat(5 - numRating)}`;
+}
+
+// फंक्शन: 'Thank You' कार्ड दिखाना
+function showCard(name, rating) {
+    const cardDetails = document.getElementById('cardDetails');
+    if (cardDetails) {
+        cardDetails.innerHTML = `
+            <h3 style="color: var(--primary)">🎉 आपकी समीक्षा सफलतापूर्वक सबमिट हो गई है!</h3>
+            <p style="font-size: 1.2em; font-weight: bold; color: green">धन्यवाद ${name}।</p>
+            <p>आपकी रेटिंग: ${getStars(rating)}</p>
+            <p style="font-size: 0.9em; margin-top: 15px;">आपका फीडबैक हमारे लिए अमूल्य है।</p>
+        `;
+        thankYouCard.style.display = 'flex'; // Pop-up/Modal को दिखाता है
+    }
+    // फॉर्म को छिपा दें
+    if (reviewForm) {
+        reviewForm.style.display = 'none';
+    }
+}
+
+// फंक्शन: कार्ड को छिपाना
+function closeCard() {
+    thankYouCard.style.display = 'none';
+    // पॉप-अप बंद होने पर फॉर्म वापस दिखाएँ
+    if (reviewForm) {
+        reviewForm.style.display = 'block';
+    }
+}
+
+
+// =========================================================================
+// 3. मुख्य सबमिशन हैंडलर (AJAX to Google Form Entry)
+// =========================================================================
+
+if (reviewForm) {
+    reviewForm.addEventListener('submit', async function(event) {
+        event.preventDefault(); 
+
+        const formData = new FormData(this);
+        const submitButton = this.querySelector('.submit-button');
+        const messageDiv = document.getElementById('message');
+        const originalButtonText = submitButton.textContent;
+        
+        // **महत्वपूर्ण:** इनपुट name से डेटा प्राप्त करें
+        const clientName = formData.get('clientName'); 
+        const rating = formData.get('rating');         
+        const reviewText = formData.get('reviewText'); 
+        
+        // बटन की स्थिति बदलना
+        submitButton.textContent = 'भेजा जा रहा है...';
+        submitButton.disabled = true;
+        messageDiv.innerText = 'कृपया प्रतीक्षा करें...';
+        messageDiv.style.color = 'blue';
+
+        if (!clientName || !rating) {
+            alert("कृपया नाम और रेटिंग दोनों भरें।");
+            // बटन को रीसेट करना
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+            messageDiv.innerText = '';
+            return;
+        }
+
+        // Google Form सबमिशन के लिए डेटा तैयार करें
+        const formPayload = new URLSearchParams();
+        formPayload.append('entry.9210209', clientName);
+        formPayload.append('entry.986375863', rating);
+        formPayload.append('entry.479764091', reviewText);
+
+
+        try {
+            // AJAX POST Request (fetch API)
+            await fetch(SUBMIT_ENDPOINT, {
+                method: 'POST',
+                mode: 'no-cors', // Google Form के लिए आवश्यक
+                body: formPayload, 
+            });
+
+            // ⭐ सबमिशन सफल होने पर: Pop-up दिखाएँ
+            showCard(clientName, rating);
+            this.reset(); // फॉर्म फ़ील्ड्स को खाली करें
+            
+        } catch (error) {
+            console.error('रिव्यू सबमिट करने में नेटवर्क त्रुटि:', error);
+            messageDiv.style.color = 'red';
+            messageDiv.innerText = 'त्रुटि: नेटवर्क कनेक्शन जाँचें और पुनः प्रयास करें।';
+        } finally {
+            // बटन को रीसेट करना (अगर फॉर्म छिपा नहीं है)
+            if (reviewForm.style.display !== 'none') {
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+            }
+        }
+    });
+} else {
+    console.error("Error: The review form with ID 'reviewForm' was not found.");
+}
+
+
+// =========================================================================
+// 4. MODAL CLOSING EVENT LISTENERS
+// =========================================================================
+
+// 'X' और 'OK' बटनों पर क्लिक करने पर बंद करना
+closeButtons.forEach(button => {
+    button.addEventListener('click', closeCard);
+});
+
+// पॉप-अप के बाहर (dark overlay) क्लिक करने पर बंद करना
+window.onclick = function(event) {
+    if (event.target === thankYouCard) {
+        closeCard();
+    }
+}
+// THEME TOGGLE
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    function applyTheme(t){
+      if(t==='dark') root.setAttribute('data-theme','dark');
+      else root.removeAttribute('data-theme');
+    }
+    const saved = localStorage.getItem('sn_theme') || 'light';
+    applyTheme(saved);
+    themeToggle.addEventListener('click',()=>{
+      const now = root.hasAttribute('data-theme') ? 'light':'dark';
+      applyTheme(now);
+      localStorage.setItem('sn_theme', now);
+    });
+    </script>
+
+</body>
+</html>
