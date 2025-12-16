@@ -668,6 +668,216 @@
             method: 'POST',
             body: searchParams,
             mode: 'no-cors' // Google Forms ke liye zaroori
+<script>
+    // WHATSAPP NUMBER
+    const whatsNumber = '918307803553'; 
+    
+    // ===================================================================================
+    // 🛑 2. STEP 1: APNI GOOGLE FORM ENTRY IDS YAHAN BHAREIN!
+    // ===================================================================================
+
+    // Google Form ke Price aur Description fields ki Entry IDs yahan aayengi.
+    // Aapko in entry.xxxxxxxxxx IDs ko apne Google Form se nikalkar replace karna hoga.
+    const GOOGLE_FORM_ENTRY_IDS = {
+        // Example IDs: Inhey badalna zaroori hai!
+        PRICE_ID: 'entry.1067275892',      
+        DESC_ID: 'entry.881822753',
+        // Optional: Current Time field ki ID
+        TIME_ID: 'entry.963017423', 
+        
+        // Note: Name, Phone, Service, Package, Link IDs ko upar HTML mein daal diya gaya hai.
+    };
+    
+    // ----------------------------------------------
+    // DYNAMIC CHAIRNED SERVICE DATA STRUCTURE
+    // ----------------------------------------------
+    const servicePackages = {
+        "Instagram": [
+            { name: "IG Indian Followers [100% Real]🇮🇳💖", price: "₹350", desc: "🚀 Guaranteed real Indian accounts, low drop rate, high quality." },
+            { name: "IG World's Cheapest Followers 🔥", price: "₹250", desc: "💰 Cheapest followers globally (may include mixed quality). Ultrafast delivery." },
+            { name: "IG Likes [NonDrop] 💧", price: "₹60", desc: "❤️ Likes that won't drop, stable and reliable service." },
+            { name: "IG Reels Views [SuperFast]👀", price: "₹5", desc: "🎥 Superfast views for reels and videos." },
+            { name: "IG Comments [Custom] Targeted 🎯", price: "₹150", desc: "💬 Custom comments from targeted or specific profiles." }
+        ],
+        "Telegram": [
+            { name: "Telegram Members Indian 🇮🇳 | Best", price: "₹300", desc: "🇮🇳 Market's best Indian members, low drop. Superfast delivery." },
+            { name: "Telegram Zero Drop Member [cheapest]💧", price: "₹450", desc: "🔒 Guaranteed non-drop members for long-term growth." },
+            { name: "Telegram - Last Posts Views👀 | CHEAPEST", price: "₹50", desc: "👁️ Views on the last 5-10 posts, very low price." },
+            { name: "Telegram Premium Post Reaction 👍💖", price: "₹100", desc: "🤩 Premium reactions on your posts, includes statistics." },
+            { name: "Telegram Ban [ Spam ] Services", price: "₹1500", desc: "🚫 Service to ban spam profiles or competitors' accounts." }
+        ],
+        "YouTube": [
+            { name: "YouTube Subscribers [Non Drops]", price: "₹599", desc: "⭐ High-retention subscribers. Helps boost channel authority." },
+            { name: "YouTube - Video Views | Cheapest", price: "₹100", desc: "🎥 Cheapest views from own server, fast delivery." },
+            { name: "YouTube [Live Stream] High Ranking", price: "₹700", desc: "🔴 Views for live streams to boost ranking and visibility." },
+            { name: "YouTube - Indian Comments", price: "₹450", desc: "💬 Real Indian comments on your video." }
+        ],
+        "Twitter": [
+            { name: "Twitter Likes [Provider] 💥 Working", price: "₹200", desc: "❌ Twitter Likes from a reliable provider." },
+            { name: "Twitter Followers", price: "₹400", desc: "❌ Regular quality Twitter followers." },
+            { name: "Twitter Views [Provider] 🔥", price: "₹150", desc: "❌ Views for your tweets and videos." }
+        ],
+
+
+ "Facebook": [
+            { name: "Facebook Followers [100% Real]💖", price: "₹70", desc: "🚀 Guaranteed real Indian accounts, low drop rate, high quality." },
+            { name: "Facebook World's Cheapest Followers 🔥", price: "₹60", desc: "💰 Cheapest followers globally (may include mixed quality). Ultrafast delivery." },
+            { name: "Facebook Reactions [NonDrop] 💧", price: "₹30", desc: "❤️ Reactions that won't drop, stable and reliable service." },
+            { name: "Facebook Views [SuperFast]👀", price: "₹15", desc: "🎥 Superfast views for post and videos." },
+            { name: "Facebook Comments💬 [Custom] Targeted🎯", price: "₹80", desc: "💬 Custom comments from targeted or specific profiles." }
+        ],
+
+
+
+            
+        "General": [
+            { name: "Custom Bulk Order / Other Platform", price: "Varies", desc: "📞 Contact us for custom or bulk service requests for platforms not listed." }
+        ]
+    };
+
+    // ----------------------------------------------
+    // DEPENDENT DROPDOWN LOGIC
+    // ----------------------------------------------
+
+    function updatePackages() {
+        const mainService = document.getElementById('mainService').value;
+        const packageSelect = document.getElementById('package');
+        
+        // Reset package dropdown and detail fields
+        packageSelect.innerHTML = '<option value="">-- Select Package --</option>';
+        document.getElementById('displayPrice').value = '—';
+        document.getElementById('displayDesc').value = '—';
+
+        if (mainService && servicePackages[mainService]) {
+            servicePackages[mainService].forEach(pkg => {
+                const option = document.createElement('option');
+                option.value = pkg.name; // Use package name as value
+                option.textContent = pkg.name;
+                packageSelect.appendChild(option);
+            });
+            packageSelect.disabled = false;
+        } else {
+            packageSelect.disabled = true;
+            packageSelect.innerHTML = '<option value="">-- Select Main Service First --</option>';
+        }
+    }
+
+    function updateServiceDetails() {
+        const selectedPackageName = document.getElementById('package').value;
+        const mainService = document.getElementById('mainService').value;
+        const priceInput = document.getElementById('displayPrice');
+        const descTextarea = document.getElementById('displayDesc');
+
+        // Find the selected package details
+        if (mainService && selectedPackageName) {
+            const selectedPackage = servicePackages[mainService].find(pkg => pkg.name === selectedPackageName);
+            if (selectedPackage) {
+                priceInput.value = selectedPackage.price;
+                descTextarea.value = selectedPackage.desc;
+                return;
+            }
+        }
+        priceInput.value = '—';
+        descTextarea.value = '—';
+    }
+
+
+    // ----------------------------------------------
+    // WHATSAPP FUNCTIONS (Kept for alternative button)
+    // ----------------------------------------------
+
+    // Function 1: For Quick Chat/Pricing Buttons
+    function openWhatsOrder(plan){
+      const message = `Hi, I want to buy your plan: ${plan} \nName:\nPhone:`; 
+      const text = encodeURIComponent(message);
+      const url = `https://wa.me/${whatsNumber}?text=${text}`;
+      window.open(url,'_blank');
+    }
+
+    // ===================================================================================
+    // CONTACT FORM SUBMIT LOGIC (MODIFIED for GOOGLE SHEET SUBMISSION)
+    // ===================================================================================
+
+    document.getElementById('contactForm').addEventListener('submit',(e)=>{
+        // Form submission ko rokna taaki hum hidden fields add kar sakein.
+        e.preventDefault();
+        
+        // 1. Dynamic fields ki value nikalna
+        const price = document.getElementById('displayPrice').value;
+        const desc = document.getElementById('displayDesc').value;
+        
+        // 2. Current Time ko format karna
+        const now = new Date();
+        const formattedTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'short', timeStyle: 'short' });
+        
+        // 3. Hidden fields create/update karna taaki Google Sheet mein data jaaye
+        
+        // Price Field
+        let hiddenPrice = document.querySelector(`input[name="${GOOGLE_FORM_ENTRY_IDS.PRICE_ID}"]`);
+        if (!hiddenPrice) {
+            hiddenPrice = document.createElement('input');
+            hiddenPrice.type = 'hidden';
+            hiddenPrice.name = GOOGLE_FORM_ENTRY_IDS.PRICE_ID;
+            e.target.appendChild(hiddenPrice);
+        }
+        hiddenPrice.value = price;
+        
+        // Description Field
+        let hiddenDesc = document.querySelector(`input[name="${GOOGLE_FORM_ENTRY_IDS.DESC_ID}"]`);
+        if (!hiddenDesc) {
+            hiddenDesc = document.createElement('input');
+            hiddenDesc.type = 'hidden';
+            hiddenDesc.name = GOOGLE_FORM_ENTRY_IDS.DESC_ID;
+            e.target.appendChild(hiddenDesc);
+        }
+        hiddenDesc.value = desc;
+
+        // Current Time Field (Agar aapne Google Form mein yeh field banayi hai)
+        if (GOOGLE_FORM_ENTRY_IDS.TIME_ID) {
+            let hiddenTime = document.getElementById('currentTime');
+            if(hiddenTime) {
+                hiddenTime.name = GOOGLE_FORM_ENTRY_IDS.TIME_ID;
+                hiddenTime.value = formattedTime;
+            }
+        }
+
+        // 4. Form ko dobara submit karna (ab hidden fields ke saath)
+        
+
+            // ===================================================================================
+    // CONTACT FORM SUBMIT LOGIC (MODIFIED for AJAX SUBMISSION)
+    // ===================================================================================
+
+    document.getElementById('contactForm').addEventListener('submit',(e)=>{
+        // Submission ko rokna taaki hum khud handle kar sakein
+        e.preventDefault(); 
+        
+        // 1. Dynamic fields aur time set karna
+        const price = document.getElementById('displayPrice').value;
+        const desc = document.getElementById('displayDesc').value;
+        const now = new Date();
+        const formattedTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'short', timeStyle: 'short' });
+        
+        // 2. Form Data ko collect karna
+        const formData = new FormData(e.target);
+        const searchParams = new URLSearchParams(formData);
+
+        // 3. Hidden fields (Price, Desc, Time) ko manually add/overwrite karna
+        searchParams.set(GOOGLE_FORM_ENTRY_IDS.PRICE_ID, price);
+        searchParams.set(GOOGLE_FORM_ENTRY_IDS.DESC_ID, desc);
+        if (GOOGLE_FORM_ENTRY_IDS.TIME_ID) {
+            // Note: currentTime field ka entry ID set karna
+            searchParams.set(GOOGLE_FORM_ENTRY_IDS.TIME_ID, formattedTime);
+        }
+
+        // 4. GOOGLE FORM SUBMISSION URL nikalna
+        const formActionUrl = e.target.action;
+        
+        // 5. AJAX (Fetch API) se data background mein bhejna
+        fetch(formActionUrl, {
+            method: 'POST',
+            body: searchParams,
+            mode: 'no-cors' // Google Forms ke liye zaroori
         })
         .then(() => {
             // Success hone par: Client ko Custom Thank You Page par bhej den
@@ -689,7 +899,6 @@
     });
 
     });
-        
 //==================QR CODE===////////
          // =======================================================
     // 🛑 CONFIGURATION (यहाँ बदलाव करें!)
@@ -777,10 +986,62 @@
     });
 
 
+    // =======================================================
+    // 8. Form Submission Logic (AJAX)
+    // =======================================================
 
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+            
+            const originalButtonText = submitButton.textContent;
+            
+            // डेटा प्राप्त करें
+            const orderIdValue   = document.getElementById('orderId').value;
+            const amountValue    = document.getElementById('amountPaid').value;
+            const utrValue       = document.getElementById('utrNumber').value;
 
-        
+            // UI: सबमिशन शुरू होने पर
+            submitButton.disabled = true;
+            submitButton.textContent = 'डेटा भेजा जा रहा है...';
+            messageDiv.style.color = 'blue';
+            messageDiv.innerText = 'कृपया प्रतीक्षा करें...';
 
+            // Google Form सबमिशन के लिए डेटा तैयार करें
+            const formPayload = new URLSearchParams();
+            formPayload.append(ORDER_ID_ENTRY, orderIdValue);
+            formPayload.append(AMOUNT_ENTRY, amountValue);
+            formPayload.append(UTR_ENTRY, utrValue);
+
+            try {
+                // AJAX POST Request
+                await fetch(SUBMIT_ENDPOINT, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    body: formPayload
+                });
+
+                // ⭐ सफलता पर: कस्टम संदेश दिखाएँ और फॉर्म खाली करें
+                showSuccessCard();
+                this.reset(); 
+                
+            } catch (error) {
+                // त्रुटि होने पर संदेश दिखाएँ
+                console.error('भुगतान डेटा सबमिट करने में नेटवर्क त्रुटि:', error);
+                messageDiv.style.color = 'red';
+                messageDiv.innerText = 'त्रुटि: डेटा जमा नहीं हुआ। नेटवर्क जाँचें और पुनः प्रयास करें।';
+                
+            } finally {
+                // अंत में बटन को रीसेट करना
+                if (paymentForm.style.display !== 'none') {
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                }
+            }
+        });
+    } else {
+        console.error("Error: The payment form with ID 'paymentForm' was not found.");
+    }
 
     // ----------------------------------------------
     // OTHER FUNCTIONS
@@ -832,6 +1093,7 @@
         updatePackages(); 
     };
 </script>
+
 
 </body>
 </html>
