@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-        <head>
-    
-    <meta charset="utf-8" />
+<head>
+<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Social Media Growth Service - Vishukhan</title>
 
@@ -21,204 +20,49 @@
     <meta name="twitter:image" content="https://vishukhan.github.io/Ig-smmpannel/Banner.png">
 
 
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+   
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <style>
-        /* BASIC CSS STYLES */
-        :root {
-            --primary: #f06; /* Pink */
-            --primary-light: #ff8cbf;
-            --text-color: #333;
-            --bg-color: #fff;
-            --card-bg: #f8f8f8;
-            --border-color: #eee;
+        :root { 
+            --primary: #007bff; --bg: #f4f7f6; --card: #ffffff; --text: #333333; --border: #dee2e6; --sidebar-text: #495057;
         }
-        [data-theme="dark"] {
-            --primary: #f06;
-            --primary-light: #ff8cbf;
-            --text-color: #f0f0f0;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --border-color: #333;
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--text); }
+        .hidden { display: none !important; }
+        header { 
+            height: 65px; background: var(--card); display: flex; justify-content: space-between; align-items: center; 
+            padding: 0 20px; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--border); 
+            box-sizing: border-box; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+        .sidebar { 
+            width: 250px; background: var(--card); height: 100vh; position: fixed; top: 65px; left: -250px; 
+            transition: 0.3s; border-right: 1px solid var(--border); z-index: 999; 
         }
-        header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: white;
-            background-color:linear-gradient(135deg,var(--primary),#ff8ab3);
-        }
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            margin-left: 20px;
-            padding: 5px;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-        nav a:hover {
-            background-color: var(--border-color);
-        }
-        /* Card & Layout */
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 900px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        h2 {
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 10px;
-            margin-top: 0;
-            color: var(--primary);
-        }
-        .btn {
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: bold;
-            transition: opacity 0.3s;
-            text-align: center;
-        }
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-        }
-        .btn-outline {
-            background-color: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-        .btn:hover {
-            opacity: 0.8;
-        }
-        /* Hero Section */
-        #hero {
-            text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
-        }
-        #hero h1 {
-            color: var(--primary);
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        /* Contact Form */
-        .contact {
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        .contact .left { flex: 1; min-width: 300px; }
-        .contact .right { flex: 1; min-width: 300px; }
-        .contact form label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        .contact form input, .contact form select, .contact form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-        .contact form input[readonly], .contact form textarea[readonly] {
-            background-color: var(--border-color);
-            cursor: default;
-        }
-        .muted { color: gray; font-size: 0.9em; }
-        
-        /* Testimonials */
-        #testimonials { text-align: center; }
-        #testiText { min-height: 100px; margin-bottom: 20px; }
-        .autor { font-style: italic; color: var(--primary); }
-        .dots { margin-top: 10px; }
-        .dot { 
-            height: 10px; width: 10px; margin: 0 5px; 
-            background-color: var(--border-color); border-radius: 50%; 
-            display: inline-block; cursor: pointer;
-        }
-        .dot.active { background-color: var(--primary); }
-        
-        /* Highlights Section Styles */
-        #highlights {
-            padding: 20px 0;
-            text-align: center;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .highlight-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        .highlight-item {
-            flex: 1;
-            min-width: 250px;
-            max-width: 300px;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: var(--card-bg);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .highlight-item h3 {
-            color: var(--primary);
-            margin-top: 10px;
-            font-size: 1.2em;
-        }
-        .highlight-icon {
-            font-size: 40px;
-        }
-
-
-
-
-
-
-              .tag {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        color: var(--text-color);
-        transition: 0.3s;
-    }
-    .tag:hover {
-        background: var(--primary);
-        color: white;
-        border-color: var(--primary);
-    }
-
-        /* Floating WhatsApp Button */
+        body.show-nav .sidebar { left: 0; }
+        .content { padding: 20px; margin-top: 75px; transition: 0.3s; }
+        @media (min-width: 769px) { .sidebar { left: 0; } .content { margin-left: 250px; } }
+        .card { background: var(--card); border-radius: 12px; padding: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .btn-main { background: var(--primary); color: #fff; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; }
+        input, select { width: 95%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--border); background: #ffffff; }
+        .table-res { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        th { text-align: left; padding: 12px; color: #6c757d; font-size: 11px; border-bottom: 2px solid var(--border); text-transform: uppercase; background: #f8f9fa; }
+        td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; color: white; }
+        .bg-pending { background: #f39c12; } .bg-completed { background: #28a745; } .bg-cancelled { background: #dc3545; }
+        .nav-item { padding: 15px 20px; cursor: pointer; border-bottom: 1px solid var(--border); }
+        .nav-item:hover { background: #f8f9fa; }
+     
+      .auth-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+        .auth-tab { flex: 1; text-align: center; padding: 10px; cursor: pointer; color: #6c757d; transition: 0.3s; }
+        .auth-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); font-weight: bold; }
+       
+    /* Floating WhatsApp Button */
         #floatWhats {
             position: fixed;
             bottom: 20px;
@@ -236,179 +80,88 @@
             text-decoration: none;
             font-size: 24px;
         }
-            /* QR कोड Modal/Pop-up CSS */
-        .modal-qr {
-            display: none; 
-            position: fixed;
-            z-index: 101; 
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-color); 
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content-qr {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 25px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            position: relative;
-        }
-        .modal-content-qr img {
-            width: 100%;
-            max-width: 250px;
-            height: auto;
-            border: 1px solid #ddd;
-            margin: 15px 0;
-        }
-        .close-qr {
-            color: #aaa;
-            float: right;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 1;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-        }
-        .close-qr:hover {
-            color: #333;
-        }
-        .btn-modal-close {
-            background-color: #007bff; 
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-             .pay-button {
-           // display: flex;
-           //text-align: center;
-          //  justify-content: center;
-          //  flex: flex-center;
-            width: 100%;
-            padding: 10px;
-            margin: 20px 0 30px;
-            background-color: #28a745; 
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .pay-button:hover {
-            background-color: #1e7e34;
-        }
-        /* टाइमर स्टाइल */
-        #countdownDisplay {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #d9534f; /* लाल रंग */
-            margin-bottom: 10px;
-            padding: 5px;
-       //     border: 1px solid #f0ad4e;
-         //   background-color: #fffbf5;
-            border-radius: 5px;
-        }
-
-             .socials{display:flex;gap:12px;justify-content:center;margin-top:8px;}
+        
+        
+                     .socials{display:flex;gap:12px;justify-content:center;margin-top:8px;}
   .socials a{text-decoration:none;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background-color: var(--border-color); color: var(--text-color);}
 
-
-
-          
+/* Hero Section */
+        #hero {
+            text-align: center;
+            margin: 30px 0;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
+        }
+        #hero h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        
+              .tag {
+        background: var(--card-bg);
+        border: 1px solid gray;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 16px;
+        color: var(--text-color);
+        transition: 0.3s;
+    }
+    .tag:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+        
     </style>
-        </head>
-<body>
+</head>
+<body id="b">
 
-        <header>
-        <div class="brand">
-         <div class="logo" aria-hidden>
-        <a href="https://www.instagram.com/galleria_by_vishu?igsh=N2VjcG01MmN2OTI21">
-                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="3" width="18" height="18" rx="5" stroke="red" stroke-width="2" fill="none"/>
-          <circle cx="12" cy="12" r="5" stroke="red" stroke-width="2" fill="none"/>
-          <circle cx="17.5" cy="6.5" r="1.5" fill="red"/>
-        </svg>
-        </a>
-         </div>
-        </div>
-        <nav>
-            <a href="index.html">Services</a>
-            <a href="#" onclick="openWhatsOrder('General Enquiry')">Order Now</a>
-            <a href="Review.html">Review</a>
-        <button id="themeToggle" class="btn" title="Toggle dark mode">🌓</button>
-        </nav>
-    </header>
+<header id="h-ui" class="hidden">
+    <div style="display:flex; align-items:center; gap:10px;">
+        <button onclick="document.getElementById('b').classList.toggle('show-nav')" style="background:none; border:none; font-size:20px; cursor:pointer;">☰</button>
+        <b>VISHU SMM <span style="color:var(--primary)">PANEL</span></b>
+    </div>
+    <div style="display:flex; gap:15px; align-items:center;">
+        <div id="uBal" style="font-weight:bold; color:var(--primary); background: #e7f1ff; padding: 5px 12px; border-radius: 20px;">₹0.00</div>
+        <button onclick="auth.signOut(); location.reload();" style="color:#ff4d4d; border:none; background:none; cursor:pointer; font-weight:600;">Logout</button>
+    </div>
+</header>
 
-    <section id="hero">
+<div id="auth-box" style="width:100%; height: 100%; margin: 100px auto;" class="card">
+<section id="hero">
         <h1>Grow your Social Presence — Fast & Safe</h1>
         <p>Instagram, YouTube, and Telegram services at the cheapest prices in the market. Trusted by thousands of users.</p>
-        <div style="margin-top: 20px;">
-            <a href="#contact" class="btn btn-primary">Place New Order</a>
-            <a onclick="openWhatsOrder('Quick Chat')" class="btn btn-outline" style="margin-left: 10px;">Quick Chat</a>
-        </div>
+    
     </section>
 
-    <section id="services" class="card">
-        <h2>Our Services</h2>
-        <p>We provide a wide range of services for all major social media platforms, including targeted and non-drop packages.</p>
-        <ul>
-            <li>**Instagram:** Followers (Indian/Real), Likes, Views, Story services.</li>
-            <li>**Telegram:** Members (Real/Premium), Views (Last/Future), Reactions, Bots, and Spam Services.</li>
-            <li>**YouTube:** Views, Likes, Subscribers (Non-Drop), Comments.</li>
-            <li>**24/7 Priority Support:** Dedicated support team for quick assistance.</li>
-        </ul>
-    </section>
+    <div class="auth-tabs">
+        <div id="t-login" class="auth-tab active" onclick="toggleAuth(true)">Login</div>
+        <div id="t-signup" class="auth-tab" onclick="toggleAuth(false)">Sign Up</div>
+    </div>
+    <h2 id="a-title" style="text-align:center; font-size: 20px;">Welcome Back</h2>
+    <input type="email" id="email" placeholder="Email Address">
+    <input type="password" id="pass" placeholder="Password">
+    <button class="btn-main" id="a-btn" onclick="handleAuth()">Login Now</button>
+<br><br>
+</div>
 
-    <section id="testimonials" class="card">
-        <h2>What Our Clients Say</h2>
-        <div id="testiText" style="margin-bottom: 20px;">
-            </div>
-        <div class="dots">
-            <span class="dot" onclick="showTesti(0)"></span>
-            <span class="dot" onclick="showTesti(1)"></span>
-            <span class="dot" onclick="showTesti(2)"></span>
-        </div>
-    </section>
+<div id="dash" class="hidden">
+    <nav class="sidebar">
+        <div class="nav-item" onclick="tab('newOrd')">🛒 New Order</div>
+        <div class="nav-item" onclick="tab('hist')">📜 Order History</div>
+        <div class="nav-item" onclick="tab('fund')">💰 Add Funds</div>
+        <div id="adm-nav" class="nav-item" style="display:none; color:#dc3545;" onclick="tab('adm')">🛡️ Admin Panel</div>
+    </nav>
 
-    <section id="contact" class="card" style="max-width:1100px;margin:18px auto;display:block">
-        <h2>Place New Order</h2>
-        <div class="contact">
-            <div class="left">
-                <p class="muted">"हमारा ऑर्डर देना हुआ अब और भी आसान और तेज़ !"<p>
-                <p class="muted">"सिर्फ 2 मिनट में अपनी मनचाही सेवा पाएं।"</p>
-                <div style="margin-top:12px">
-                    <div style="display:flex;gap:8px;flex-wrap:wrap">
-                        <a class="btn btn-primary" onclick="openWhatsOrder('General Enquiry')">Order on WhatsApp</a>
-                        
-                    </div>
-                </div>
-            </div>
-
-            <div class="right">
-                <form id="contactForm" method="POST" action="https://docs.google.com/forms/d/e/1FAIpQLSfgsTRovS6XtJ8j0sFXRYqh4mfJB26DHraTotGhtm7Z9Uk1YA/formResponse">
-                    
-                    <label for="name">Name</label>
-                    <input id="name" name="entry.525618696" required placeholder="Your name" />
-
-                    <label for="phone">Phone / WhatsApp</label>
-                    <input id="phone" name="entry.902063623" required placeholder="99999-88888" />
-
-                    <label for="mainService">Select Main Service</label>
-                    <select id="mainService" name="entry.1962226386" onchange="updatePackages()">
-                        <option value="">-- Select Service --</option>
-                        <option value="Instagram-Followers">🫂 Instagram Followers</option>
+    <main class="content">
+        <div id="newOrd" class="tv">
+            <div class="card" style="max-width:550px; margin:auto;">
+                <h3 style="margin-top:0;">Place New Order</h3>
+                <select id="cat" onchange="updateServices()" style="width: 100%;">
+                    <option value="">-- Select Category --</option>
+                  <option value="Instagram-Followers">🫂 Instagram Followers</option>
                         <option value="Instagram-Likes">❤️ Instagram Likes</option>
                         <option value="Instagram-Views">👀 Instagram Views</option>
                         <option value="Telegram">✈️ Telegram (Members/Views/Reactions)</option>
@@ -421,83 +174,55 @@
                         <option value="General">📞 General Enquiry</option>
                         <option value="New-Year"> ✨️ New Year Offers </option>
                     </select>
-
-                    <label for="package">Select Package & Price</label>
-                    <select id="package" name="entry.331095667" onchange="updateServiceDetails()" disabled>
-                        <option value="">-- Select Main Service First --</option>
-                    </select>
-
-                    <label for="displayPrice">Price</label>
-                    <input id="displayPrice" readonly value="—" />
-                    <p style="color:var(--text-color);"> Price for 1k (Like,Followers,Reactions)</p>
-                    <label for="displayDesc">Description</label>
-                    <textarea id="displayDesc" readonly rows="3" style="min-height:50px">—</textarea>
-
-                    <label for="message">Link / Username</label>
-                    <input id="message" name="entry.1743693186" placeholder="Profile Link or Username (Required for Order)" />
-
-                    <input type="hidden" id="currentTime" name="entry.963017423" value="">
-                         
-        <label for="amountPaid">भुगतान की गई राशि</label>
-        <input type="number" id="amountPaid" name="entry.1538827866" step="0.01" placeholder="RUPEE" required>
-        
-        <label for="utrNumber">UTR/ट्रांज़ैक्शन ID</label>
-        <input type="text" id="utrNumber" name="entry.227156470" placeholder="UTR-NUMBER" required>
-        
-   
-    
-
-        
-        <button type="button" class="pay-button" id="openQrModal">
-            QR कोड स्कैन करके भुगतान करें
-        </button>
-        
-        
-      
-     
-                    <div style="margin-top:20px"> 
-                        <button type="submit" class="btn btn-primary" style="width:100%;">Send Order</button>
-                    </div>
-                </form>
+                <select id="service" onchange="calcPrice()">
+                    <option value="">-- Select Service --</option>
+                </select>
+                <input type="text" id="link" placeholder="Profile or Post Link" >
+                <input type="number" id="qty" placeholder="Quantity" oninput="calcPrice()">
+                <div id="service-desc" style="font-size: 12px; color: #666; margin-bottom: 15px; background: #f8f9fa; padding: 12px; border-radius: 8px; border-left: 4px solid var(--primary); display: none;"></div>
+                <p style="font-weight: 600;">Total Charge: <span id="tot" style="color:var(--primary); font-size: 1.2em;">₹0.00</span></p>
+                <button class="btn-main" onclick="buy()">Order Now</button>
             </div>
         </div>
-    </section>
-    <div id="qrModal" class="modal-qr">
-    <div class="modal-content-qr">
-        <span class="close-qr" id="closeQr">&times;</span>
-        
-        <h3>UPI भुगतान के लिए स्कैन करें</h3>
-        
-        <img src="qrcode.jpg" alt="UPI Payment QR Code"> 
-        <div id="countdownDisplay">5:00</div>  
-        <p style="font-weight: bold; margin-top: 10px;">स्कैन करने के बाद, कृपया UTR/ट्रांज़ैक्शन ID नोट कर लें।</p>
-        <button class="btn-modal-close" id="closeModalButton">भुगतान हो गया</button>
- 
-        </div>
-</div>
-    
-    <section id="highlights">
-        <h2>Why Choose Us?</h2>
-        <div class="highlight-grid">
-            <div class="highlight-item">
-                <div class="highlight-icon">💰</div>
-                <h3>Cheapest Price</h3>
-                <p>Our prices are the lowest in the market without compromising quality.</p>
-            </div>
-            <div class="highlight-item">
-                <div class="highlight-icon">⏳</div>
-                <h3>Fast Delivery</h3>
-                <p>Your orders will be delivered in minutes, ensuring rapid growth.</p>
-            </div>
-            <div class="highlight-item">
-                <div class="highlight-icon">🧑‍💻</div>
-                <h3>24/7 Support</h3>
-                <p>We're here to help you at any time with dedicated priority support.</p>
+
+        <div id="hist" class="tv hidden">
+            <div class="card">
+                <h3>My Order History</h3>
+                <div class="table-res">
+                    <table>
+                        <thead><tr><th>Order ID</th><th>Time</th><th>Service</th><th>Amount</th><th>Qty</th><th>Link</th><th>Status</th></tr></thead>
+                        <tbody id="h-list"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </section>
 
+        <div id="fund" class="tv hidden">
+            <div class="card" style="max-width:400px; margin:auto; text-align:center;">
+                <h3>Add Funds</h3>
+                <img src="qrcode.jpg" class="img" style="width:200px" onerror="this.src='https://via.placeholder.com/200?text=QR+CODE'">
+                <p>Pay via UPI and enter UTR below</p>
+                <input type="number" id="f-amt" placeholder="Amount Paid">
+                <input type="text" id="f-utr" placeholder="12 Digit UTR Number">
+                <button class="btn-main" onclick="addF()">Submit Payment</button>
+            </div>
+        </div>
 
+        <div id="adm" class="tv hidden">
+            <div class="card">
+                <h3 style="color:#dc3545;">Pending Payments</h3>
+                <div id="a-pay"></div>
+            </div>
+            <div class="card">
+                <h3>All User Orders</h3>
+                <div class="table-res">
+                    <table id="admin-order-table">
+                        <thead><tr><th>Date</th><th>User</th><th>Order ID</th><th>Service</th><th>Qty</th><th>Status</th><th>Action</th></tr></thead>
+                        <tbody id="a-ord"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <section id="seo-keywords" class="card" style="margin-top: 50px; border-top: 3px solid var(--primary);">
     <div style="padding: 10px;">
         <h2 style="font-size: 1.5rem; margin-bottom: 15px;">Official SMM Panel for Social Growth</h2>
@@ -520,494 +245,299 @@
             <span class="tag">Instagram Comment Bot Panel</span>
             <span class="tag">Auto-Like Subscription Services</span>
         </div>
-
-        <div style="margin-top: 20px; font-size: 13px; font-style: italic; color: var(--primary);">
-            * How to increase Instagram engagement using an SMM panel? Simply choose our high-quality services and see the results!
-        </div>
-    </div>
-
-
+    </main>
+    
+</div>
 
   <div class="whats-float" aria-hidden>
     <a class="whats-btn" id="floatWhats" href="#" title="Chat on WhatsApp" onclick="openWhatsOrder('Quick Message')">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.67 4.33A11.95 11.95 0 0012 0C5.373 0 0 5.373 0 12c0 2.11.553 4.142 1.6 5.94L0 24l6.24-1.6A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-1.89-.4-3.68-1.33-5.34z" fill="#fff" opacity=".02"/><path d="M20.52 3.48A11.66 11.66 0 0012 1.2 11.775 11.775 0 001.5 12c0 2.01.53 3.95 1.54 5.68L2.4 22.8l4.64-1.18A11.68 11.68 0 0012 23.4c6.45 0 11.7-5.25 11.7-11.7 0-1.95-.45-3.84-1.68-5.22z" fill="#25D366"/><path d="M17.1 14.46c-.4-0.2-2.36-1.15-2.72-1.28-.36-.12-.62-.2-.88.19-.26.39-1 1.28-1.22 1.54-.22.26-.44.29-.83.1-.4-.2-1.7-.63-3.24-2-1.2-1.05-2-2.36-2.23-2.76-.23-.39-.02-.6.16-.79.16-.16.36-.4.54-.6.18-.2.24-.36.36-.6.12-.24.06-.45-.03-.64-.09-.2-.88-2.13-1.2-2.92-.31-.76-.63-.67-.88-.68-.22-.01-.47-.01-.72-.01-.24 0-.63.09-.96.44-.33.36-1.26 1.23-1.26 3.03 0 1.8 1.29 3.53 1.47 3.78.18.26 2.55 3.86 6.18 5.4 3.6 1.53 3.6 1.05 4.26.98.66-.06 2.14-.87 2.44-1.71.3-.83.3-1.55.21-1.71-.09-.16-.33-.26-.73-.46z" fill="#fff"/></svg>
     </a>
   </div>
+  
+  
 
-    <footer style="text-align: center; padding: 20px; font-size: 0.8em; background-color: var(--card-bg); border-top: 1px solid var(--border-color);">
+     <footer style="text-align: center; padding: 20px; font-size: 0.8em; background-color: var(--card-bg); border-top: 1px solid var(--border-color);">
         <p>&copy; 2025 SMM Growth. All rights reserved.</p>
                 <div class="socials" aria-label="social links">
       <a href="https://www.facebook.com/share/1K1QcLRiqp/" aria-label="Facebook">Facebook</a>
       <a href="https://www.instagram.com/vishu_khan680?igsh=N2VjcG01MmN2OTI2" aria-label="Instagram">Instagram</a>
-      <a href="https://t.me/vishusumo" aria-label="Telegram">Telegram</a>
+      <a href="https://t.me/vishusumo[]" aria-label="Telegram">Telegram</a>
                 </div>
     </footer>
 
 
 
-                
 <script>
-    // WHATSAPP NUMBER
-    const whatsNumber = '918307803553'; 
-    
-    // ===================================================================================
-    // 🛑 2. STEP 1: APNI GOOGLE FORM ENTRY IDS YAHAN BHAREIN!
-    // ===================================================================================
-
-    // Google Form ke Price aur Description fields ki Entry IDs yahan aayengi.
-    // Aapko in entry.xxxxxxxxxx IDs ko apne Google Form se nikalkar replace karna hoga.
-    const GOOGLE_FORM_ENTRY_IDS = {
-        // Example IDs: Inhey badalna zaroori hai!
-        PRICE_ID: 'entry.1067275892',      
-        DESC_ID: 'entry.881822753',
-        // Optional: Current Time field ki ID
-        TIME_ID: 'entry.963017423', 
-        
-        // Note: Name, Phone, Service, Package, Link IDs ko upar HTML mein daal diya gaya hai.
+    const firebaseConfig = {
+        apiKey: "AIzaSyDio-ngrUNVad6Hn865hjlNbAGPT8bYrrI",
+        authDomain: "instagram-pro-app-4f150.firebaseapp.com",
+        projectId: "instagram-pro-app-4f150",
+        storageBucket: "instagram-pro-app-4f150.firebasestorage.app",
+        messagingSenderId: "513387147180",
+        appId: "1:513387147180:web:f2294d46843d8139879409"
     };
-    
-    // ----------------------------------------------
-    // DYNAMIC CHAIRNED SERVICE DATA STRUCTURE
-    // ----------------------------------------------
-    const servicePackages = {
-        
-            "Instagram-Followers": [
-            { name: "IG Indian Followers [100% Real]🇮🇳💖", price: "₹350", desc: "🚀 Guaranteed real Indian accounts,💧Low drop rate, ⚡️High quality, The Market Leader -- ₹350 per 1000" },
-            { name: "IG World's Cheapest Followers 🔥", price: "₹300", desc: "💰 Cheapest followers globally (may include mixed quality). Ultrafast delivery, The Market Leader -- ₹300 per 1000." },         
-            {name: "Instagram Followers [ Own⭐️ Cheapest in the world🌍]", price: "₹280",  desc: "Indian App Data followers🇮🇳, Pure Indian Real Users, Start 0 to 1 hour, Speed 50k, The Market Leader -- ₹280 per 1000, Drop: Not expected."},
-            {name: "Instagram Real & Active Followers", price: "₹400", desc: "Insta Followers, Indian Profiles, Story Accounts Indian Real Active [Non~Drop ], Speed 50k per day, 30 Days Refill ♻️, The Market Leader -- ₹400 per 1000"},
-            {name: "Instagram Real & Active Followers[Refill♻️]", price: "₹450", desc: "Insta Followers, Indian Profile, 100 Days Refill ♻️, The Market Leader -- ₹400 per 1000"},
-            {name: "Instagram Real & Active Followers [😍1000%😍]", price: "₹500", desc: "Insta Followers Indian Profiles, Speed 200k per day, 365 Days Refill ♻️, The Market Leader -- ₹500 per 1000"},
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth(), db = firebase.firestore();
+
+    const serviceData = {
+     "Instagram-Followers": [
+            { name: "IG Indian Followers [100% Real]🇮🇳💖", price: 360, desc: "🚀 Guaranteed real Indian accounts,💧Low drop rate, ⚡️High quality, The Market Leader -- ₹350 per 1000" },
+            { name: "IG World's Cheapest Followers 🔥", price: 300, desc: "💰 Cheapest followers globally (may include mixed quality). Ultrafast delivery, The Market Leader -- ₹300 per 1000." },         
+            {name: "Instagram Followers [ Own⭐️ Cheapest in the world🌍]", price: 280,  desc: "Indian App Data followers🇮🇳, Pure Indian Real Users, Start 0 to 1 hour, Speed 50k, The Market Leader -- ₹280 per 1000, Drop: Not expected."},
+            {name: "Instagram Real & Active Followers", price: 400, desc: "Insta Followers, Indian Profiles, Story Accounts Indian Real Active [Non~Drop ], Speed 50k per day, 30 Days Refill ♻️, The Market Leader -- ₹400 per 1000"},
+            {name: "Instagram Real & Active Followers[Refill♻️]", price: 450, desc: "Insta Followers, Indian Profile, 100 Days Refill ♻️, The Market Leader -- ₹400 per 1000"},
+            {name: "Instagram Real & Active Followers [😍1000%😍]", price: 500, desc: "Insta Followers Indian Profiles, Speed 200k per day, 365 Days Refill ♻️, The Market Leader -- ₹500 per 1000"},
         ], 
             "Instagram-Likes" : [ 
-         { name: "Instagram Likes ❤️", price: "₹60", desc: " Instagram Likes - Max 100K | 5K-10K/Day | Instant -- ₹60 per 1000,⏰️Start 0-10 Min, ✈️ Speed 8k Per Hours,💧 Drop Non Drop,✏️ Note Cheap Price Service In All Market  Maximum Can be 900k per order  You can place reorder after 900k"},
-         { name: "Indian Likes🇮🇳❤️", price: "₹80", desc: " Start 0-10 Min, ✈️ Speed 8k+ Per Hours, 🩸 Drop: Non Drop, ✏️ Note: Cheap Price Service In All Market. Maximum Can be 900k per order . (You can place re-order after 900k)"},
-         { name: " Instagram Likes", price: " ₹55", desc: " Instagram Likes | Instant -- ₹55 per 1000, Start: 0-10 Min, ✈️ Speed: 8k+ Per Hours, 🩸 Drop: Non Drop, ♻️ Refill: Lifetime, ✏️ Note: Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k)"},
+         { name: "Instagram Likes ❤️", price: 60 , desc: " Instagram Likes - Max 100K | 5K-10K/Day | Instant -- ₹60 per 1000,⏰️Start 0-10 Min, ✈️ Speed 8k Per Hours,💧 Drop Non Drop,✏️ Note Cheap Price Service In All Market  Maximum Can be 900k per order  You can place reorder after 900k"},
+         { name: "Indian Likes🇮🇳❤️", price: 80 , desc: " Start 0-10 Min, ✈️ Speed 8k+ Per Hours, 🩸 Drop: Non Drop, ✏️ Note: Cheap Price Service In All Market. Maximum Can be 900k per order . (You can place re-order after 900k)"},
+         { name: " Instagram Likes", price:  55 , desc: " Instagram Likes | Instant -- ₹55 per 1000, Start: 0-10 Min, ✈️ Speed: 8k+ Per Hours, 🩸 Drop: Non Drop, ♻️ Refill: Lifetime, ✏️ Note: Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k)"},
         ],
 
 
 
        "Instagram-Views":[
-       { name: "IG Reels Views [SuperFast]👀", price: "₹5", desc: "🎥 Superfast views for reels and videos." },
-       { name: "Instagram Views", price: " ₹6", desc:"Instagram VIEWS | King Service, 300K/Hour's | Evergreen Performance, Bullet Speed Delivery -- ₹6 per 1000"},
-       { name: "Instagram 👥Premium Reel Views👀", price: "₹10", desc: "Instagram Premium Reel Views | 🌍Real Users | Super Real Quality | Instant One- Click Delivery🔥🔥 -- ₹10 per 1000"},
+       { name: "IG Reels Views [SuperFast]👀", price: 5, desc: "🎥 Superfast views for reels and videos." },
+       { name: "Instagram Views", price: 6, desc:"Instagram VIEWS | King Service, 300K/Hour's | Evergreen Performance, Bullet Speed Delivery -- ₹6 per 1000"},
+       { name: "Instagram 👥Premium Reel Views👀", price: 10, desc: "Instagram Premium Reel Views | 🌍Real Users | Super Real Quality | Instant One- Click Delivery🔥🔥 -- ₹10 per 1000"},
       ],
             
         "Telegram": [
-            { name: "Telegram Members Indian 🇮🇳 | Best", price: "₹500", desc: "🇮🇳 Market's best Indian members, low drop. Superfast delivery." },
-            { name: "Telegram Zero Drop Member [cheapest]💧", price: "₹450", desc: "🔒 Guaranteed non-drop members for long-term growth." },
-            { name: "Telegram - Last Posts Views👀 | CHEAPEST", price: "₹50", desc: "👁️ Views on the last 5-10 posts, very low price." },
-            { name: "Telegram Premium Post Reaction 👍💖", price: "₹100", desc: "🤩 Premium reactions on your posts, includes statistics." },
-            { name: "Telegram Ban [ Spam ] Services", price: "₹1500", desc: "🚫 Service to ban spam profiles or competitors' accounts." }
+            { name: "Telegram Members Indian 🇮🇳 | Best", price: 500, desc: "🇮🇳 Market's best Indian members, low drop. Superfast delivery." },
+            { name: "Telegram Zero Drop Member [cheapest]💧", price: 450, desc: "🔒 Guaranteed non-drop members for long-term growth." },
+            { name: "Telegram - Last Posts Views👀 | CHEAPEST", price: 70, desc: "👁️ Views on the last 5-10 posts, very low price." },
+            { name: "Telegram Premium Post Reaction 👍💖", price: 100, desc: "🤩 Premium reactions on your posts, includes statistics." },
+            { name: "Telegram Ban [ Spam ] Services", price: 1500, desc: "🚫 Service to ban spam profiles or competitors' accounts." }
         ],
         "YouTube": [
-            { name: "YouTube Subscribers [Non Drops]", price: "₹3499", desc: "⭐ High-retention subscribers. Helps boost channel authority." },
-            { name: "YouTube - Video Views | Cheapest", price: "₹1000", desc: "🎥 Cheapest views from own server, fast delivery." },
-            { name: "YouTube [Live Stream] High Ranking", price: "₹700", desc: "🔴 Views for live streams to boost ranking and visibility." },
-            { name: "YouTube - Indian Comments", price: "₹950", desc: "💬 Real Indian comments on your video." },
-            { name: "YouTube Subscribers", price: "₹100", desc: "⭐ High-retention subscribers. Helps boost channel authority." },
+            { name: "YouTube Subscribers [Non Drops]", price: 3499, desc: "⭐ High-retention subscribers. Helps boost channel authority." },
+            { name: "YouTube - Video Views | Cheapest", price: 1000, desc: "🎥 Cheapest views from own server, fast delivery." },
+            { name: "YouTube [Live Stream] High Ranking", price: 700, desc: "🔴 Views for live streams to boost ranking and visibility." },
+            { name: "YouTube - Indian Comments", price: 950, desc: "💬 Real Indian comments on your video." },
+            { name: "YouTube Subscribers", price: 100, desc: "⭐ High-retention subscribers. Helps boost channel authority." },
     
         ],
         "Twitter": [
-            { name: "Twitter Likes [Provider] 💥 Working", price: "₹200", desc: "❌ Twitter Likes from a reliable provider." },
-            { name: "Twitter Followers", price: "₹400", desc: "❌ Regular quality Twitter followers." },
-            { name: "Twitter Views [Provider] 🔥", price: "₹150", desc: "❌ Views for your tweets and videos." }
+            { name: "Twitter Likes [Provider] 💥 Working", price: 250, desc: "❌ Twitter Likes from a reliable provider." },
+            { name: "Twitter Followers", price: 400, desc: "❌ Regular quality Twitter followers." },
+            { name: "Twitter Views [Provider] 🔥", price: 150, desc: "❌ Views for your tweets and videos." }
         ],
 
        "Facebook-Likes" : [ 
-                  { name: "Facebook Likes(All Type) ❤️", price: "₹60", desc: " Facebook Likes - Max 100K | 5K-10K/Day | Instant -- ₹50 per 1000, Start  0-10 Min, ✈️ Speed 8k+ Per Hours,🩸 Drop: Non Drop,♻️ Refill Lifetime, ✏️ Note Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k) "},
-                  { name: "Facebook Cheap Likes ❤️", price: "₹45", desc: " Facebook Likes - Max 100K | 5K-10K/Day | Instant -- ₹45 per 1000, Start  0-10 Min, ✈️ Speed 10k+ Per Hours,🩸 Drop: Non Drop,♻️ Refill Lifetime, ✏️ Note Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k) "},
-                  { name: "Facebook Post Likes ❤️", price: "₹50", desc: " Facebook Likes - Max 100K | 5K-10K/Day | Instant -- ₹50 per 1000, Start  0-10 Min, ✈️ Speed 8k+ Per Hours,🩸 Drop: Non Drop,♻️ Refill Lifetime, ✏️ Note Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k) "},
-                  { name: " Facebook Real Likes", price: " ₹55", desc: " Instagram Likes | Instant -- ₹55 per 1000, Start: 0-10 Min, ✈️ Speed: 10k+ Per Hours, 🩸 Drop: Non Drop, ♻️ Refill: Lifetime, ✏️ Note: Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k)"},
-                  { name: "Facebook Post/Video Likes ❤️", price: "₹50", desc: " Facebook Likes - Max 100K | 5K-10K/Day | Instant -- ₹50 per 1000, Start  0-10 Min, ✈️ Speed 8k Per Hours,🩸 Drop Non Drop,♻️ Refill Lifetime, ✏️ Note Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k) "},
-                  { name: "Indian Likes🇮🇳❤️", price: "₹70", desc: " Start 0-10 Min, ✈️ Speed 50k+ Per Hours, 🩸 Drop: Non Drop, ✏️ Note: Cheap Price Service In All Market. Maximum Can be 900k per order . (You can place re-order after 900k)"},
+                  { name: "Facebook Likes(All Type) ❤️", price: 60, desc: " Facebook Likes - Max 100K | 5K-10K/Day | Instant -- ₹50 per 1000, Start  0-10 Min, ✈️ Speed 8k+ Per Hours,🩸 Drop: Non Drop,♻️ Refill Lifetime, ✏️ Note Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k) "},
+                  { name: "Facebook Cheap Likes ❤️", price: 45, desc: " Facebook Likes - Max 100K | 5K-10K/Day | Instant -- ₹45 per 1000, Start  0-10 Min, ✈️ Speed 10k+ Per Hours,🩸 Drop: Non Drop,♻️ Refill Lifetime, ✏️ Note Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k) "},
+                  { name: "Facebook Post Likes ❤️", price: 50, desc: " Facebook Likes - Max 100K | 5K-10K/Day | Instant -- ₹50 per 1000, Start  0-10 Min, ✈️ Speed 8k+ Per Hours,🩸 Drop: Non Drop,♻️ Refill Lifetime, ✏️ Note Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k) "},
+                  { name: " Facebook Real Likes", price:  56, desc: " Instagram Likes | Instant -- ₹55 per 1000, Start: 0-10 Min, ✈️ Speed: 10k+ Per Hours, 🩸 Drop: Non Drop, ♻️ Refill: Lifetime, ✏️ Note: Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k)"},
+                  { name: "Facebook Post/Video Likes ❤️", price: 52, desc: " Facebook Likes - Max 100K | 5K-10K/Day | Instant -- ₹50 per 1000, Start  0-10 Min, ✈️ Speed 8k Per Hours,🩸 Drop Non Drop,♻️ Refill Lifetime, ✏️ Note Cheap Price Service In All Market . Maximum Can be 900k per order . (You can place re-order after 900k) "},
+                  { name: "Indian Likes🇮🇳❤️", price: 70, desc: " Start 0-10 Min, ✈️ Speed 50k+ Per Hours, 🩸 Drop: Non Drop, ✏️ Note: Cheap Price Service In All Market. Maximum Can be 900k per order . (You can place re-order after 900k)"},
         ],
       "Facebook-Followers":[ 
-                 { name: "Facebook Page/Profile Followers",  price: "₹80", desc: "Facebook Page/Profile Followers🫂 Cheapest In The World 🌍 Main Provider📌"},
-                 { name: "Facebook Page/Profile Followers(Ultra-Fast⚡️)", price: "₹90", desc: "Facebook Page/Profile Followers [Ultrafast⚡️ 100K Day] Instant [Non Drop] No Refill  ₹90 per 1000" },
-                 { name: "🔥Facebook Page/Profile Followers(⚡️Ultrafast Non Drop💧)", price: "₹100", desc: "Facebook Followers [Page/Profile] 0% Drop (100K Day) HQ Profiles No Refill♻️ ₹100 per 1000"},
+                 { name: "Facebook Page/Profile Followers",  price: 80 , desc: "Facebook Page/Profile Followers🫂 Cheapest In The World 🌍 Main Provider📌"},
+                 { name: "Facebook Page/Profile Followers(Ultra-Fast⚡️)", price: 90 , desc: "Facebook Page/Profile Followers [Ultrafast⚡️ 100K Day] Instant [Non Drop] No Refill  ₹90 per 1000" },
+                 { name: "🔥Facebook Page/Profile Followers(⚡️Ultrafast Non Drop💧)", price: 100, desc: "Facebook Followers [Page/Profile] 0% Drop (100K Day) HQ Profiles No Refill♻️ ₹100 per 1000"},
       ],
       "Facebook-Views":[ 
-                 { name: "Facebook Views👀 [SuperFast]👀", price: "₹20", desc: "🎥 Superfast views for post and videos." },
-                 { name: "Facebook Video Views", price: "₹30", desc: "Facebook Views👀(Superfast) 100k day"},
-                 { name: "Facebook Reel Views👀 [0% Drop💧]", price:"₹25", desc: "Facebook Reel Views👀 [0% Drop💧] Fast 500K Day✨️ Lifetime Refill♻️  ₹25  per 1000"},
-                 { name: "Facebook Reel Views👀 (SuperFast)", price: "₹20", desc: " Facebook Reel Views [0% Drop💧] SuperFast 100K-200KDay [⏰️Instant Start] Lifetime Refill♻️ ₹20 per 1000"},
+                 { name: "Facebook Views👀 [SuperFast]👀", price: 35, desc: "🎥 Superfast views for post and videos." },
+                 { name: "Facebook Video Views", price: 30, desc: "Facebook Views👀(Superfast) 100k day"},
+                 { name: "Facebook Reel Views👀 [0% Drop💧]", price: 25 , desc: "Facebook Reel Views👀 [0% Drop💧] Fast 500K Day✨️ Lifetime Refill♻️  ₹25  per 1000"},
+                 { name: "Facebook Reel Views👀 (SuperFast)", price: 20, desc: " Facebook Reel Views [0% Drop💧] SuperFast 100K-200KDay [⏰️Instant Start] Lifetime Refill♻️ ₹20 per 1000"},
        ],
             
-       "New-Year": [   
-               { name: "Ig Followers 👥️", price: "₹250", desc:  " New year best offers for ig followers👥️"},
-              { name: " Ig views 👀", price: "₹1", desc: "New year best offers for ig views👀 "},
-           { name: "Ig Likes ❤️", price: "₹60", desc:  " New year best offers ig likes❤️"},
-           {name: "Facebook Followers 👥️", price: "₹90", desc:  " New year best offers FacebookFollowers👥️"},
-           { name: " Ig 1k free views👀", price: "Free", desc:  " New year best offers for free views👀"}
-],
+      
 
-
-            
-        "General": [
-            { name: "Custom Bulk Order / Other Platform", price: "Varies", desc: "📞 Contact us for custom or bulk service requests for platforms not listed." }
-        ]
     };
 
-    // ----------------------------------------------
-    // DEPENDENT DROPDOWN LOGIC
-    // ----------------------------------------------
-
-    function updatePackages() {
-        const mainService = document.getElementById('mainService').value;
-        const packageSelect = document.getElementById('package');
-        
-        // Reset package dropdown and detail fields
-        packageSelect.innerHTML = '<option value="">-- Select Package --</option>';
-        document.getElementById('displayPrice').value = '—';
-        document.getElementById('displayDesc').value = '—';
-
-        if (mainService && servicePackages[mainService]) {
-            servicePackages[mainService].forEach(pkg => {
-                const option = document.createElement('option');
-                option.value = pkg.name; // Use package name as value
-                option.textContent = pkg.name;
-                packageSelect.appendChild(option);
+    function updateServices() {
+        const cat = document.getElementById('cat').value;
+        const serviceSelect = document.getElementById('service');
+        serviceSelect.innerHTML = '<option value="">-- Select Service --</option>';
+        if (cat && serviceData[cat]) {
+            serviceData[cat].forEach((s, index) => {
+                const opt = document.createElement('option');
+                opt.value = index;
+                opt.innerHTML = s.name;
+                serviceSelect.appendChild(opt);
             });
-            packageSelect.disabled = false;
+        }
+        calcPrice();
+    }
+
+    function calcPrice() {
+        const cat = document.getElementById('cat').value;
+        const sIndex = document.getElementById('service').value;
+        const qty = parseFloat(document.getElementById('qty').value) || 0;
+        const descBox = document.getElementById('service-desc');
+        const totText = document.getElementById('tot');
+
+        if (cat && sIndex !== "") {
+            const selected = serviceData[cat][sIndex];
+            descBox.style.display = "block";
+            descBox.innerHTML = selected.desc;
+            const total = (qty / 1000) * selected.price;
+            totText.innerText = "₹" + total.toFixed(2);
         } else {
-            packageSelect.disabled = true;
-            packageSelect.innerHTML = '<option value="">-- Select Main Service First --</option>';
+            descBox.style.display = "none";
+            totText.innerText = "₹0.00";
         }
     }
 
-    function updateServiceDetails() {
-        const selectedPackageName = document.getElementById('package').value;
-        const mainService = document.getElementById('mainService').value;
-        const priceInput = document.getElementById('displayPrice');
-        const descTextarea = document.getElementById('displayDesc');
+    // AUTH FUNCTIONS
+    let isLoginMode = true;
+    function toggleAuth(mode) {
+        isLoginMode = mode;
+        document.getElementById('t-login').classList.toggle('active', mode);
+        document.getElementById('t-signup').classList.toggle('active', !mode);
+        document.getElementById('a-title').innerText = mode ? "Welcome Back" : "Create Account";
+        document.getElementById('a-btn').innerText = mode ? "Login Now" : "Register Now";
+    }
 
-        // Find the selected package details
-        if (mainService && selectedPackageName) {
-            const selectedPackage = servicePackages[mainService].find(pkg => pkg.name === selectedPackageName);
-            if (selectedPackage) {
-                priceInput.value = selectedPackage.price;
-                descTextarea.value = selectedPackage.desc;
-                return;
+    async function handleAuth() {
+        const e = document.getElementById('email').value, p = document.getElementById('pass').value;
+        if(!e || !p) return alert("Fill all fields");
+        try {
+            if(isLoginMode) await auth.signInWithEmailAndPassword(e, p);
+            else {
+                const res = await auth.createUserWithEmailAndPassword(e, p);
+                await db.collection('users').doc(res.user.uid).set({ email: e, balance: 0, createdAt: Date.now() });
             }
-        }
-        priceInput.value = '—';
-        descTextarea.value = '—';
+        } catch(err) { alert(err.message); }
     }
 
-
-    // ----------------------------------------------
-    // WHATSAPP FUNCTIONS (Kept for alternative button)
-    // ----------------------------------------------
-
-    // Function 1: For Quick Chat/Pricing Buttons
-    function openWhatsOrder(plan){
-      const message = `Hi, I want to buy your plan: ${plan} \nName:\nPhone:`; 
-      const text = encodeURIComponent(message);
-      const url = `https://wa.me/${whatsNumber}?text=${text}`;
-      window.open(url,'_blank');
-    }
-
-    // ===================================================================================
-    // CONTACT FORM SUBMIT LOGIC (MODIFIED for GOOGLE SHEET SUBMISSION)
-    // ===================================================================================
-
-    document.getElementById('contactForm').addEventListener('submit',(e)=>{
-        // Form submission ko rokna taaki hum hidden fields add kar sakein.
-        e.preventDefault();
-        
-        // 1. Dynamic fields ki value nikalna
-        const price = document.getElementById('displayPrice').value;
-        const desc = document.getElementById('displayDesc').value;
-        
-        // 2. Current Time ko format karna
-        const now = new Date();
-        const formattedTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'short', timeStyle: 'short' });
-        
-        // 3. Hidden fields create/update karna taaki Google Sheet mein data jaaye
-        
-        // Price Field
-        let hiddenPrice = document.querySelector(`input[name="${GOOGLE_FORM_ENTRY_IDS.PRICE_ID}"]`);
-        if (!hiddenPrice) {
-            hiddenPrice = document.createElement('input');
-            hiddenPrice.type = 'hidden';
-            hiddenPrice.name = GOOGLE_FORM_ENTRY_IDS.PRICE_ID;
-            e.target.appendChild(hiddenPrice);
+    auth.onAuthStateChanged(user => {
+        if(user) {
+            document.getElementById('auth-box').classList.add('hidden');
+            document.getElementById('dash').classList.remove('hidden');
+            document.getElementById('h-ui').classList.remove('hidden');
+            if(user.email === "instagramsmm571@gmail.com") document.getElementById('adm-nav').style.display='block';
+            db.collection('users').doc(user.uid).onSnapshot(s => {
+                if(s.exists) document.getElementById('uBal').innerText = "₹" + (s.data().balance || 0).toFixed(2);
+            });
+            loadH(); // History automatically load karein user ke liye
         }
-        hiddenPrice.value = price;
+    });
+
+    async function buy() {
+        const cat = document.getElementById('cat').value;
+        const sIndex = document.getElementById('service').value;
+        const q = parseInt(document.getElementById('qty').value);
+        const link = document.getElementById('link').value;
         
-        // Description Field
-        let hiddenDesc = document.querySelector(`input[name="${GOOGLE_FORM_ENTRY_IDS.DESC_ID}"]`);
-        if (!hiddenDesc) {
-            hiddenDesc = document.createElement('input');
-            hiddenDesc.type = 'hidden';
-            hiddenDesc.name = GOOGLE_FORM_ENTRY_IDS.DESC_ID;
-            e.target.appendChild(hiddenDesc);
-        }
-        hiddenDesc.value = desc;
-
-        // Current Time Field (Agar aapne Google Form mein yeh field banayi hai)
-        if (GOOGLE_FORM_ENTRY_IDS.TIME_ID) {
-            let hiddenTime = document.getElementById('currentTime');
-            if(hiddenTime) {
-                hiddenTime.name = GOOGLE_FORM_ENTRY_IDS.TIME_ID;
-                hiddenTime.value = formattedTime;
-            }
-        }
-
-        // 4. Form ko dobara submit karna (ab hidden fields ke saath)
+        if(!cat || sIndex === "" || !q || !link) return alert("Fill all details!");
+        const service = serviceData[cat][sIndex];
+        const cost = (q / 1000) * service.price;
         
-
-            // ===================================================================================
-    // CONTACT FORM SUBMIT LOGIC (MODIFIED for AJAX SUBMISSION)
-    // ===================================================================================
-
-    document.getElementById('contactForm').addEventListener('submit',(e)=>{
-        // Submission ko rokna taaki hum khud handle kar sakein
-        e.preventDefault(); 
+        const uDoc = await db.collection('users').doc(auth.currentUser.uid).get();
+        if(uDoc.data().balance < cost) return alert("Low Balance! Please add funds.");
         
-        // 1. Dynamic fields aur time set karna
-        const price = document.getElementById('displayPrice').value;
-        const desc = document.getElementById('displayDesc').value;
-        const now = new Date();
-        const formattedTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'short', timeStyle: 'short' });
-        
-        // 2. Form Data ko collect karna
-        const formData = new FormData(e.target);
-        const searchParams = new URLSearchParams(formData);
-
-        // 3. Hidden fields (Price, Desc, Time) ko manually add/overwrite karna
-        searchParams.set(GOOGLE_FORM_ENTRY_IDS.PRICE_ID, price);
-        searchParams.set(GOOGLE_FORM_ENTRY_IDS.DESC_ID, desc);
-        if (GOOGLE_FORM_ENTRY_IDS.TIME_ID) {
-            // Note: currentTime field ka entry ID set karna
-            searchParams.set(GOOGLE_FORM_ENTRY_IDS.TIME_ID, formattedTime);
-        }
-
-        // 4. GOOGLE FORM SUBMISSION URL nikalna
-        const formActionUrl = e.target.action;
-        
-        // 5. AJAX (Fetch API) se data background mein bhejna
-        fetch(formActionUrl, {
-            method: 'POST',
-            body: searchParams,
-            mode: 'no-cors' // Google Forms ke liye zaroori
-        })
-        .then(() => {
-            // Success hone par: Client ko Custom Thank You Page par bhej den
-            const name = document.getElementById('name').value || 'User';
-            
-            // User ko turant feedback dena
-            alert(`Thanks ${name}! Your order has been placed successfully and you will be redirected.`);
-            
-            // 🛑 YAHAN APNA THANK YOU PAGE KA SAHI URL DAALEN!
-            // Example: Agar aapki website ka naam vishukhan.github.io hai.
-            window.location.href = "https://vishukhan.github.io/Ig-smmpannel/thankyou.html"; 
-            
-        })
-        .catch(error => {
-            console.error('Submission failed:', error);
-            alert('Order Bhejne mein koi error aayi. Please WhatsApp par try karein.');
+        const oid = Math.floor(100000 + Math.random() * 900000);
+        await db.collection('orders').add({
+            oid, uid: auth.currentUser.uid, email: auth.currentUser.email,
+            cat: service.name, qty: q, amt: cost, 
+            status: 'Pending', time: Date.now(), link: link
         });
-        
-    });
-
-    });
-//==================QR CODE===////////
-         // =======================================================
-    // 🛑 CONFIGURATION (यहाँ बदलाव करें!)
-    // =======================================================
-    
- 
-    // =======================================================
-    // 6. DOM Elements and Global Timer Variable
-    // =======================================================
-    const paymentForm    = document.getElementById('paymentForm');
-  // QR Modal Elements
-    const qrModal = document.getElementById('qrModal');
-    const openQrButton = document.getElementById('openQrModal');
-    const closeQrSpan = document.getElementById('closeQr');
-    const countdownDisplay = document.getElementById('countdownDisplay');
-    const closeModalButton = document.getElementById('closeModalButton');
-
-    let countdownInterval; // टाइमर को कंट्रोल करने के लिए ग्लोबल वेरिएबल
-
-
-    
-    
-    // Function: टाइमर को बंद करना और Modal को छिपाना
-    function stopAndCloseQrModal() {
-        clearInterval(countdownInterval); // टाइमर बंद करें
-        qrModal.style.display = "none";
-        countdownDisplay.style.color = '#d9534f'; // कलर को लाल पर रीसेट करें
-        countdownDisplay.innerText = '5:00'; // डिस्प्ले रीसेट करें
+        await db.collection('users').doc(auth.currentUser.uid).update({balance: uDoc.data().balance - cost});
+        alert("Order Placed! ID: #" + oid);
     }
 
-    // Function: उलटी गिनती शुरू करना
-    function startCountdown() {
-        // अगर पहले से टाइमर चल रहा है, तो उसे बंद करें
-        if (countdownInterval) {
-            clearInterval(countdownInterval);
-        }
-        
-        let timeLeft = 5 * 60; // 5 मिनट = 300 सेकंड
-        countdownDisplay.style.color = '#28a745'; // शुरू में हरा
-        
-        countdownInterval = setInterval(() => {
-            const minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-            
-            countdownDisplay.innerText = `${minutes}:${seconds}`;
-            
-            // 1 मिनट से कम होने पर कलर बदलें
-            if (timeLeft <= 60) {
-                countdownDisplay.style.color = '#d9534f'; // लाल
-            }
-            
-            // जब टाइमर समाप्त हो जाए
-            if (timeLeft <= 0) {
-                clearInterval(countdownInterval);
-                countdownDisplay.innerText = 'समय समाप्त! QR कोड पुराना हो सकता है।';
-                countdownDisplay.style.color = 'red';
-                // आप यहाँ QR कोड इमेज को छिपाने जैसा कोई एक्शन भी जोड़ सकते हैं
-                return;
-            }
-
-            timeLeft--;
-        }, 1000); // हर 1 सेकंड में अपडेट करें
+    // Tab switcher
+    function tab(t) {
+        document.querySelectorAll('.tv').forEach(v => v.classList.add('hidden'));
+        document.getElementById(t).classList.remove('hidden');
+        if(t==='hist') loadH();
+        if(t==='adm') { loadAP(); loadAO(); }
     }
 
-
-    // =======================================================
-    // 7. Event Listeners for QR Modal & Timer
-    // =======================================================
-    
-    // QR Modal खोलें और टाइमर शुरू करें
-    openQrButton.addEventListener('click', function() {
-        qrModal.style.display = "flex"; 
-        startCountdown();
-    });
-
-    // Close बटन (X), Modal Close बटन और बाहर क्लिक करने पर Modal बंद करें
-    closeQrSpan.addEventListener('click', stopAndCloseQrModal);
-    closeModalButton.addEventListener('click', stopAndCloseQrModal);
-    
-    window.addEventListener('click', function(event) {
-        if (event.target == qrModal) {
-            stopAndCloseQrModal();
-        }
-    });
-
-
-    // =======================================================
-    // 8. Form Submission Logic (AJAX)
-    // =======================================================
-
-    if (paymentForm) {
-        paymentForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); 
-            
-            const originalButtonText = submitButton.textContent;
-            
-            // डेटा प्राप्त करें
-            const orderIdValue   = document.getElementById('orderId').value;
-            const amountValue    = document.getElementById('amountPaid').value;
-            const utrValue       = document.getElementById('utrNumber').value;
-
-            // UI: सबमिशन शुरू होने पर
-            submitButton.disabled = true;
-            submitButton.textContent = 'डेटा भेजा जा रहा है...';
-            messageDiv.style.color = 'blue';
-            messageDiv.innerText = 'कृपया प्रतीक्षा करें...';
-
-            // Google Form सबमिशन के लिए डेटा तैयार करें
-            const formPayload = new URLSearchParams();
-            formPayload.append(ORDER_ID_ENTRY, orderIdValue);
-            formPayload.append(AMOUNT_ENTRY, amountValue);
-            formPayload.append(UTR_ENTRY, utrValue);
-
-            try {
-                // AJAX POST Request
-                await fetch(SUBMIT_ENDPOINT, {
-                    method: 'POST',
-                    mode: 'no-cors', 
-                    body: formPayload
-                });
-
-                // ⭐ सफलता पर: कस्टम संदेश दिखाएँ और फॉर्म खाली करें
-                showSuccessCard();
-                this.reset(); 
-                
-            } catch (error) {
-                // त्रुटि होने पर संदेश दिखाएँ
-                console.error('भुगतान डेटा सबमिट करने में नेटवर्क त्रुटि:', error);
-                messageDiv.style.color = 'red';
-                messageDiv.innerText = 'त्रुटि: डेटा जमा नहीं हुआ। नेटवर्क जाँचें और पुनः प्रयास करें।';
-                
-            } finally {
-                // अंत में बटन को रीसेट करना
-                if (paymentForm.style.display !== 'none') {
-                    submitButton.textContent = originalButtonText;
-                    submitButton.disabled = false;
-                }
-            }
+    // USER HISTORY FIX: Indexing error se bachne ke liye orderBy temporary hataya
+    function loadH() {
+        db.collection('orders')
+          .where('uid','==',auth.currentUser.uid)
+          .onSnapshot(s => {
+            let html = s.docs.map(d => {
+                const o = d.data();
+                return `<tr><td>#${o.oid}</td><td>${fmtDate(o.time)}</td><td>${o.cat}</td><td>₹${o.amt.toFixed(2)}</td><td>${o.qty}</td><td><a href="${o.link}" target="_blank">View</a></td><td><span class="badge bg-${o.status.toLowerCase()}">${o.status}</span></td></tr>`;
+            }).join('');
+            document.getElementById('h-list').innerHTML = html || "<tr><td colspan='7'>No orders found.</td></tr>";
         });
-    } else {
-        console.error("Error: The payment form with ID 'paymentForm' was not found.");
     }
 
-    // ----------------------------------------------
-    // OTHER FUNCTIONS
-    // ----------------------------------------------
+    // ADMIN FUNCTIONS
+    function loadAO() {
+    console.log("Loading Admin Orders..."); // Debugging ke liye
+    const adminTable = document.getElementById('a-ord');
+    
+    // Yahan humne .orderBy() hata diya hai taaki indexing error na aaye
+    db.collection('orders').onSnapshot(s => {
+        if (s.empty) {
+            adminTable.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No orders found in database.</td></tr>";
+            return;
+        }
 
-    // THEME TOGGLE
-    const themeToggle = document.getElementById('themeToggle');
-    const root = document.documentElement;
-    function applyTheme(t){
-      if(t==='dark') root.setAttribute('data-theme','dark');
-      else root.removeAttribute('data-theme');
-    }
-    const saved = localStorage.getItem('sn_theme') || 'light';
-    applyTheme(saved);
-    themeToggle.addEventListener('click',()=>{
-      const now = root.hasAttribute('data-theme') ? 'light':'dark';
-      applyTheme(now);
-      localStorage.setItem('sn_theme', now);
+        adminTable.innerHTML = s.docs.map(d => {
+            const o = d.data();
+            const status = o.status ? o.status.toLowerCase() : 'pending';
+            const userEmail = o.email ? o.email.split('@')[0] : 'Unknown';
+            
+            return `
+                <tr>
+                    <td>${fmtDate(o.time)}</td>
+                    <td>${userEmail}</td>
+                    <td>#${o.oid || 'N/A'}</td>
+                    <td>${o.cat || 'Service'}</td>
+                    <td>${o.qty || 0}</td>
+                    <td><span class="badge bg-${status}">${o.status || 'Pending'}</span></td>
+                    <td>
+                        <select onchange="updateStatus('${d.id}', this.value, '${o.uid}', ${o.amt})" style="padding:4px; font-size:11px;">
+                            <option value="">Action</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Refund & Cancel</option>
+                        </select>
+                    </td>
+                </tr>`;
+        }).join('');
+    }, err => {
+        console.error("Admin Load Error:", err.message);
+        adminTable.innerHTML = `<tr><td colspan='7' style='color:red;'>Error: ${err.message}</td></tr>`;
     });
+}
 
-    // TESTIMONIALS (Initialization)
-    const testimonials = [
-      {text:'"बहुत अच्छा काम — हमारे रील्स पर असर दिखा और लोकल ग्राहक बढ़े।"', autor:'— राजेश, छोटे बिजनेस ओनर'},
-      {text:'"संडेशनल सर्विस, रिपोर्ट समय पर मिली।"', autor:'— सीमा, ब्यूटी सैलून'},
-      {text:'"लो-कॉस्ट और हाई इम्पैक्ट — Recommend!"', autor:'— मोहित, रेस्टोरेंट'}
-    ];
-    let currentTesti=0;
-    function showTesti(i){
-      currentTesti=i%testimonials.length;
-      const el = document.getElementById('testiText');
-      el.innerHTML = `<p>${testimonials[currentTesti].text}</p><div class=\"autor\">${testimonials[currentTesti].autor}</div>`;
-      document.querySelectorAll('.dot').forEach((d,idx)=>d.classList.toggle('active',idx===currentTesti));
+
+    function loadAP() {
+        db.collection('payments').where('status','==','pending').onSnapshot(s => {
+            document.getElementById('a-pay').innerHTML = s.docs.map(d => `
+                <div style="background:#f8f9fa; padding:12px; border-radius:8px; border:1px solid var(--border); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <div style="font-size:13px;"><b>${d.data().email}</b><br>Amount: ₹${d.data().amt} | UTR: ${d.data().utr}</div>
+                    <div style="display:flex; gap:8px;">
+                        <button onclick="vPay('${d.id}','${d.data().uid}',${d.data().amt},'approved')" style="background:#28a745; color:#fff; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">Approve</button>
+                        <button onclick="vPay('${d.id}','','','rejected')" style="background:#dc3545; color:#fff; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">Reject</button>
+                    </div>
+                </div>`).join('') || "No pending payments.";
+        });
     }
-    setInterval(()=>{ showTesti((currentTesti+1)%testimonials.length); },6000);
 
+    async function vPay(id, uid, amt, status) {
+        if(status === 'approved') {
+            const u = await db.collection('users').doc(uid).get();
+            await db.collection('users').doc(uid).update({balance: (u.data().balance || 0) + amt});
+        }
+        await db.collection('payments').doc(id).update({status: status});
+        alert("Payment " + status);
+    }
 
-    // Razorpay demo 
-    const payDemoBtns = document.querySelectorAll('#payDemoBtn, #payDemoBtn2');
-    payDemoBtns.forEach(b=>b.addEventListener('click',()=>{
-      const amount = 99900; 
-      if(confirm('Proceed to demo payment of ₹999? (This is a demo, no real payment will occur)')){
-        alert('Demo payment success. (Replace with real Razorpay integration)');
-      }
-    }));
+    function addF() {
+        const a = parseFloat(document.getElementById('f-amt').value);
+        const u = document.getElementById('f-utr').value;
+        if(!a || u.length < 5) return alert("Enter valid Amount and UTR!");
+        db.collection('payments').add({ uid: auth.currentUser.uid, email: auth.currentUser.email, amt: a, utr: u, status: 'pending', time: Date.now() });
+        alert("Submitted! Wait for admin approval.");
+    }
 
-    // INITIALIZE ON LOAD
-    window.onload = function() {
-        showTesti(0);
-        updatePackages(); 
-    };
+    function fmtDate(ts) {
+        if(!ts) return "N/A";
+        return new Intl.DateTimeFormat('en-IN', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date(ts));
+    }
+
+    $(document).ready(function() { $('#cat').select2(); });
 </script>
-
-
 </body>
-</html>
+        </html>
