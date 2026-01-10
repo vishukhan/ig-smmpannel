@@ -532,6 +532,30 @@
         alert("Submitted! Wait for admin approval.");
     }
 
+    // Yeh function admin ko status change karne aur paise refund karne ki power deta hai
+async function updateStatus(id, nSt, uid, amt) {
+    if (!nSt) return; // Agar "Action" select kiya toh kuch na karein
+
+    try {
+        if (nSt === 'Cancelled') {
+            // Agar order cancel kiya toh user ko paise wapas milenge
+            const userRef = db.collection('users').doc(uid);
+            const userSnap = await userRef.get();
+            const currentBalance = userSnap.data().balance || 0;
+            await userRef.update({ balance: currentBalance + amt });
+            alert("Order Cancelled and Amount Refunded to User!");
+        }
+
+        // Order ka status update karein
+        await db.collection('orders').doc(id).update({ status: nSt });
+        alert("Status updated to: " + nSt);
+    } catch (error) {
+        console.error("Update Error:", error);
+        alert("Error updating status: " + error.message);
+    }
+}
+
+
     function fmtDate(ts) {
         if(!ts) return "N/A";
         return new Intl.DateTimeFormat('en-IN', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date(ts));
