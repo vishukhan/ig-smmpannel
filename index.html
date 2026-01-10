@@ -54,7 +54,8 @@
         th { text-align: left; padding: 12px; color: #6c757d; font-size: 11px; border-bottom: 2px solid var(--border); text-transform: uppercase; background: #f8f9fa; }
         td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
         .badge { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; color: white; }
-        .bg-pending { background: #f39c12; } .bg-completed { background: #28a745; } .bg-cancelled { background: #dc3545; }
+        .bg-pending { background: #f39c12; } .bg-inprogress { background: #17a2b8; } /* Cyan/Blue color for progress */
+ .bg-completed { background: #28a745; } .bg-cancelled { background: #dc3545; }
         .nav-item { padding: 15px 20px; cursor: pointer; border-bottom: 1px solid var(--border); }
         .nav-item:hover { background: #f8f9fa; }
      
@@ -463,43 +464,34 @@
 
     // ADMIN FUNCTIONS
     function loadAO() {
-    console.log("Loading Admin Orders..."); // Debugging ke liye
-    const adminTable = document.getElementById('a-ord');
-    
-    // Yahan humne .orderBy() hata diya hai taaki indexing error na aaye
     db.collection('orders').onSnapshot(s => {
-        if (s.empty) {
-            adminTable.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No orders found in database.</td></tr>";
-            return;
-        }
-
+        const adminTable = document.getElementById('a-ord');
         adminTable.innerHTML = s.docs.map(d => {
             const o = d.data();
-            const status = o.status ? o.status.toLowerCase() : 'pending';
-            const userEmail = o.email ? o.email.split('@')[0] : 'Unknown';
+            // Status name se space hatane ke liye lowercase aur replace use karein
+            const safeStatus = (o.status || 'Pending').toLowerCase().replace(/\s/g, '');
             
             return `
                 <tr>
                     <td>${fmtDate(o.time)}</td>
-                    <td>${userEmail}</td>
-                    <td>#${o.oid || 'N/A'}</td>
-                    <td>${o.cat || 'Service'}</td>
-                    <td>${o.qty || 0}</td>
-                    <td><span class="badge bg-${status}">${o.status || 'Pending'}</span></td>
+                    <td>${o.email ? o.email.split('@')[0] : 'User'}</td>
+                    <td>#${o.oid}</td>
+                    <td>${o.cat}</td>
+                    <td>${o.qty}</td>
+                    <td><span class="badge bg-${safeStatus}">${o.status}</span></td>
                     <td>
-                        <select onchange="updateStatus('${d.id}', this.value, '${o.uid}', ${o.amt})" style="padding:4px; font-size:11px;">
+                        <select onchange="updateStatus('${d.id}', this.value, '${o.uid}', ${o.amt})">
                             <option value="">Action</option>
+                            <option value="In Progress">In Progress</option>
                             <option value="Completed">Completed</option>
                             <option value="Cancelled">Refund & Cancel</option>
                         </select>
                     </td>
                 </tr>`;
         }).join('');
-    }, err => {
-        console.error("Admin Load Error:", err.message);
-        adminTable.innerHTML = `<tr><td colspan='7' style='color:red;'>Error: ${err.message}</td></tr>`;
     });
 }
+
 
 
     function loadAP() {
